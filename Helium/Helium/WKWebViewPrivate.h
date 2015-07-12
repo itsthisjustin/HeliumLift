@@ -1,9 +1,9 @@
 //
 //  Test.h
-//  Helium
+//  Helium Lift
 //
-//  Created by Jaden Geller on 4/13/15.
-//  Copyright (c) 2015 Jaden Geller. All rights reserved.
+//  Modified by Justin Mitchell on 7/12/15.
+//  Copyright (c) 2015 Justin Mitchell. All rights reserved.
 //
 
 @import WebKit;
