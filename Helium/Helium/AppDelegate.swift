@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  Helium
+//  Helium Lift
 //
-//  Created by Jaden Geller on 4/9/15.
-//  Copyright (c) 2015 Jaden Geller. All rights reserved.
+//  Modified by Justin Mitchell on 7/12/15.
+//  Copyright (c) 2015 Justin Mitchell. All rights reserved.
 //
 
 import Cocoa
@@ -11,7 +11,7 @@ import CoreGraphics
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-
+    
     @IBOutlet weak var magicURLMenu: NSMenuItem!
     @IBOutlet weak var menuBarMenu: NSMenu!
     
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         magicURLMenu.state = NSUserDefaults.standardUserDefaults().boolForKey("disabledMagicURLs") ? NSOffState : NSOnState
         
     }
-
+    
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
@@ -60,10 +60,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     
-//MARK: - handleURLEvent
+    //MARK: - handleURLEvent
     // Called when the App opened via URL.
     func handleURLEvent(event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
-    
+        
         // There were a lot of strange Optionals being used in this method,
         // including a bunch of stuff that was being force-unwrapped.
         // I just cleaned it up a little, but didn't make any substantive changes.
@@ -72,15 +72,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let url = urlString.substringFromIndex(advance(urlString.startIndex, 9))
             
             if let urlObject = NSURL(string: url) {
-            
+                
                 NSNotificationCenter.defaultCenter().postNotificationName("HeliumLoadURL", object: urlObject)
                 
             }
-                
-            } else {
-                println("No valid URL to handle")
-            }
             
+        } else {
+            println("No valid URL to handle")
+        }
+        
         
     }
     
@@ -154,11 +154,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     @IBAction func openLocationPress(sender: AnyObject) {
+        println("location requested...")
         didRequestLocation()
     }
     
     @IBAction func openFilePress(sender: AnyObject) {
         didRequestFile()
+    }
+    
+    @IBAction func goHomePress(sender: AnyObject) {
+        webViewController.clear()
     }
     
     //MARK: Actual functionality

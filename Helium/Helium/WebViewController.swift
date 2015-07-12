@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  Helium
+//  Helium Lift
 //
-//  Created by Jaden Geller on 4/9/15.
-//  Copyright (c) 2015 Jaden Geller. All rights reserved.
+//  Modified by Justin Mitchell on 7/12/15.
+//  Copyright (c) 2015 Justin Mitchell. All rights reserved.
 //
 
 import Cocoa
@@ -87,11 +87,11 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     @IBAction func zoomOut(sender: AnyObject) {
         zoomOut()
     }
-
-
+    
+    
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
@@ -99,9 +99,9 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.loadRequest(NSURLRequest(URL: url))
     }
     
-//MARK: - loadURLObject
+    //MARK: - loadURLObject
     func loadURLObject(urlObject : NSNotification) {
-    
+        
         // This is where the work gets done - it grabs everything after
         // "openURL=" from the urlObject, makes a new NSURL out of it
         // and sends it to loadURL.
@@ -110,16 +110,17 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             let lastPart = url.absoluteString?.componentsSeparatedByString("openURL=").last,
             let newURL = NSURL(string: lastPart) {
                 loadURL(newURL);
-            }
+        }
     }
     
     func requestedReload() {
         webView.reload()
     }
+    
     func clear() {
         loadURL(NSURL(string: "http://jmitch.duet.to/index.html")!)
     }
-
+    
     var webView = WKWebView()
     var shouldRedirect: Bool {
         get {
@@ -136,7 +137,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             modified = modified.replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
             
             modified = modified.replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
-
+            
             if urlString != modified {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 loadURL(NSURL(string: modified)!)
@@ -183,6 +184,6 @@ extension String {
         else {
             return self
         }
-    
+        
     }
 }

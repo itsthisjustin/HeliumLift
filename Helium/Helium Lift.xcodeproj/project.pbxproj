@@ -11,23 +11,19 @@
 		4D867CB91AD6781200681331 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D867CB81AD6781200681331 /* WebViewController.swift */; };
 		4D867CBB1AD6781200681331 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBA1AD6781200681331 /* Images.xcassets */; };
 		4D867CBE1AD6781200681331 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBC1AD6781200681331 /* Main.storyboard */; };
-		4D867CCA1AD6781200681331 /* HeliumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D867CC91AD6781200681331 /* HeliumTests.swift */; };
 		B34C1EC31ADE3B520094ADBA /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34C1EC21ADE3B520094ADBA /* Sparkle.framework */; };
 		B34C1EC61ADE3CBE0094ADBA /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */; };
 		B34C1EC91ADE3F980094ADBA /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B34C1EC21ADE3B520094ADBA /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95672401B50A42700AF7E31 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723E1B50A42700AF7E31 /* icon@2x.png */; };
 		C95672411B50A42700AF7E31 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723F1B50A42700AF7E31 /* icon.png */; };
+		C9B1D5D51B5335B300D92538 /* icon_32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5CE1B5335B300D92538 /* icon_32x32.png */; };
+		C9B1D5D61B5335B300D92538 /* icon_16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5CF1B5335B300D92538 /* icon_16x16.png */; };
+		C9B1D5D71B5335B300D92538 /* icon_256x256.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D01B5335B300D92538 /* icon_256x256.png */; };
+		C9B1D5D81B5335B300D92538 /* icon_128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D11B5335B300D92538 /* icon_128x128.png */; };
+		C9B1D5D91B5335B300D92538 /* icon_512x512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */; };
+		C9B1D5DA1B5335B300D92538 /* icon_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D31B5335B300D92538 /* icon_512x512.png */; };
+		C9B1D5DB1B5335B300D92538 /* icon_32x32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4D867CC41AD6781200681331 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4D867CA91AD6781200681331 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D867CB01AD6781200681331;
-			remoteInfo = Helium;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B34C1EC81ADE3F870094ADBA /* CopyFiles */ = {
@@ -43,13 +39,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4D867CB11AD6781200681331 /* Helium Lift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Helium Lift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D867CB11AD6781200681331 /* Helium Lift Lift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Helium Lift Lift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D867CB51AD6781200681331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D867CB61AD6781200681331 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D867CB81AD6781200681331 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D867CBA1AD6781200681331 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D867CBD1AD6781200681331 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4D867CC31AD6781200681331 /* HeliumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeliumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D867CC81AD6781200681331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D867CC91AD6781200681331 /* HeliumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeliumTests.swift; sourceTree = "<group>"; };
 		4DEAB8FD1ADBD98600A2FC2B /* Helium-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Helium-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -58,6 +53,13 @@
 		B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		C956723E1B50A42700AF7E31 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		C956723F1B50A42700AF7E31 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		C9B1D5CE1B5335B300D92538 /* icon_32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_32x32.png; sourceTree = "<group>"; };
+		C9B1D5CF1B5335B300D92538 /* icon_16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_16x16.png; sourceTree = "<group>"; };
+		C9B1D5D01B5335B300D92538 /* icon_256x256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256x256.png; sourceTree = "<group>"; };
+		C9B1D5D11B5335B300D92538 /* icon_128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_128x128.png; sourceTree = "<group>"; };
+		C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_512x512@2x.png"; sourceTree = "<group>"; };
+		C9B1D5D31B5335B300D92538 /* icon_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512x512.png; sourceTree = "<group>"; };
+		C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_32x32@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +68,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34C1EC31ADE3B520094ADBA /* Sparkle.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D867CC01AD6781200681331 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,8 +86,7 @@
 		4D867CB21AD6781200681331 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D867CB11AD6781200681331 /* Helium Lift.app */,
-				4D867CC31AD6781200681331 /* HeliumTests.xctest */,
+				4D867CB11AD6781200681331 /* Helium Lift Lift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,6 +143,13 @@
 		B34C1EC71ADE3CCA0094ADBA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9B1D5CE1B5335B300D92538 /* icon_32x32.png */,
+				C9B1D5CF1B5335B300D92538 /* icon_16x16.png */,
+				C9B1D5D01B5335B300D92538 /* icon_256x256.png */,
+				C9B1D5D11B5335B300D92538 /* icon_128x128.png */,
+				C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */,
+				C9B1D5D31B5335B300D92538 /* icon_512x512.png */,
+				C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */,
 				C956723E1B50A42700AF7E31 /* icon@2x.png */,
 				C956723F1B50A42700AF7E31 /* icon.png */,
 				B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */,
@@ -159,9 +160,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4D867CB01AD6781200681331 /* Helium */ = {
+		4D867CB01AD6781200681331 /* Helium Lift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium" */;
+			buildConfigurationList = 4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium Lift" */;
 			buildPhases = (
 				4D867CAD1AD6781200681331 /* Sources */,
 				4D867CAE1AD6781200681331 /* Frameworks */,
@@ -172,28 +173,10 @@
 			);
 			dependencies = (
 			);
-			name = Helium;
+			name = "Helium Lift";
 			productName = Helium;
-			productReference = 4D867CB11AD6781200681331 /* Helium Lift.app */;
+			productReference = 4D867CB11AD6781200681331 /* Helium Lift Lift.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4D867CC21AD6781200681331 /* HeliumTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4D867CD01AD6781200681331 /* Build configuration list for PBXNativeTarget "HeliumTests" */;
-			buildPhases = (
-				4D867CBF1AD6781200681331 /* Sources */,
-				4D867CC01AD6781200681331 /* Frameworks */,
-				4D867CC11AD6781200681331 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4D867CC51AD6781200681331 /* PBXTargetDependency */,
-			);
-			name = HeliumTests;
-			productName = HeliumTests;
-			productReference = 4D867CC31AD6781200681331 /* HeliumTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -208,13 +191,9 @@
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = 844ZY8TQFX;
 					};
-					4D867CC21AD6781200681331 = {
-						CreatedOnToolsVersion = 6.3;
-						TestTargetID = 4D867CB01AD6781200681331;
-					};
 				};
 			};
-			buildConfigurationList = 4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium" */;
+			buildConfigurationList = 4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium Lift" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -227,8 +206,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D867CB01AD6781200681331 /* Helium */,
-				4D867CC21AD6781200681331 /* HeliumTests */,
+				4D867CB01AD6781200681331 /* Helium Lift */,
 			);
 		};
 /* End PBXProject section */
@@ -238,18 +216,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B1D5DA1B5335B300D92538 /* icon_512x512.png in Resources */,
+				C9B1D5D91B5335B300D92538 /* icon_512x512@2x.png in Resources */,
 				4D867CBB1AD6781200681331 /* Images.xcassets in Resources */,
 				C95672411B50A42700AF7E31 /* icon.png in Resources */,
 				C95672401B50A42700AF7E31 /* icon@2x.png in Resources */,
+				C9B1D5D51B5335B300D92538 /* icon_32x32.png in Resources */,
 				B34C1EC61ADE3CBE0094ADBA /* dsa_pub.pem in Resources */,
+				C9B1D5D71B5335B300D92538 /* icon_256x256.png in Resources */,
+				C9B1D5DB1B5335B300D92538 /* icon_32x32@2x.png in Resources */,
 				4D867CBE1AD6781200681331 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D867CC11AD6781200681331 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				C9B1D5D61B5335B300D92538 /* icon_16x16.png in Resources */,
+				C9B1D5D81B5335B300D92538 /* icon_128x128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,23 +243,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D867CBF1AD6781200681331 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D867CCA1AD6781200681331 /* HeliumTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4D867CC51AD6781200681331 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D867CB01AD6781200681331 /* Helium */;
-			targetProxy = 4D867CC41AD6781200681331 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4D867CBC1AD6781200681331 /* Main.storyboard */ = {
@@ -389,7 +351,7 @@
 				INFOPLIST_FILE = Helium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_NAME = "Helium Lift";
+				PRODUCT_NAME = "Helium Lift Lift";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -409,51 +371,15 @@
 				INFOPLIST_FILE = Helium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_NAME = "Helium Lift";
+				PRODUCT_NAME = "Helium Lift Lift";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
-			};
-			name = Release;
-		};
-		4D867CD11AD6781200681331 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HeliumTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Helium.app/Contents/MacOS/Helium";
-			};
-			name = Debug;
-		};
-		4D867CD21AD6781200681331 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HeliumTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Helium.app/Contents/MacOS/Helium";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium" */ = {
+		4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium Lift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D867CCB1AD6781200681331 /* Debug */,
@@ -462,20 +388,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium" */ = {
+		4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium Lift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D867CCE1AD6781200681331 /* Debug */,
 				4D867CCF1AD6781200681331 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4D867CD01AD6781200681331 /* Build configuration list for PBXNativeTarget "HeliumTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4D867CD11AD6781200681331 /* Debug */,
-				4D867CD21AD6781200681331 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
