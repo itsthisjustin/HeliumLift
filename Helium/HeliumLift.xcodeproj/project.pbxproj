@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D867CB11AD6781200681331 /* Helium Lift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Helium Lift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D867CB11AD6781200681331 /* HeliumLift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeliumLift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D867CB51AD6781200681331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D867CB61AD6781200681331 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D867CB81AD6781200681331 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		4D867CB21AD6781200681331 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D867CB11AD6781200681331 /* Helium Lift.app */,
+				4D867CB11AD6781200681331 /* HeliumLift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,9 +144,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4D867CB01AD6781200681331 /* Helium Lift */ = {
+		4D867CB01AD6781200681331 /* HeliumLift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium Lift" */;
+			buildConfigurationList = 4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "HeliumLift" */;
 			buildPhases = (
 				4D867CAD1AD6781200681331 /* Sources */,
 				4D867CAE1AD6781200681331 /* Frameworks */,
@@ -156,9 +156,9 @@
 			);
 			dependencies = (
 			);
-			name = "Helium Lift";
+			name = HeliumLift;
 			productName = Helium;
-			productReference = 4D867CB11AD6781200681331 /* Helium Lift.app */;
+			productReference = 4D867CB11AD6781200681331 /* HeliumLift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -176,7 +176,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium Lift" */;
+			buildConfigurationList = 4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "HeliumLift" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -189,7 +189,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D867CB01AD6781200681331 /* Helium Lift */,
+				4D867CB01AD6781200681331 /* HeliumLift */,
 			);
 		};
 /* End PBXProject section */
@@ -334,7 +334,7 @@
 				INFOPLIST_FILE = Helium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_NAME = "Helium Lift";
+				PRODUCT_NAME = HeliumLift;
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -354,7 +354,7 @@
 				INFOPLIST_FILE = Helium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_NAME = "Helium Lift";
+				PRODUCT_NAME = HeliumLift;
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 			};
 			name = Release;
@@ -362,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "Helium Lift" */ = {
+		4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "HeliumLift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D867CCB1AD6781200681331 /* Debug */,
@@ -371,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "Helium Lift" */ = {
+		4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "HeliumLift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D867CCE1AD6781200681331 /* Debug */,
