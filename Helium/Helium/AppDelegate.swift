@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var magicURLMenu: NSMenuItem!
     @IBOutlet weak var menuBarMenu: NSMenu!
     
-    
     var statusBar = NSStatusBar.systemStatusBar()
     var statusBarItem : NSStatusItem = NSStatusItem()
     var defaultWindow:NSWindow!
@@ -70,13 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
             
             let url = urlString.componentsSeparatedByString("heliumlift://openURL=").last!
-            
             if let urlObject = NSURL(string: url) {
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("HeliumLoadURL", object: urlObject)
                 
             }
-            
         } else {
             println("No valid URL to handle")
         }
