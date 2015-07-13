@@ -69,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // I just cleaned it up a little, but didn't make any substantive changes.
         if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
             
-            let url = urlString.substringFromIndex(advance(urlString.startIndex, 9))
+        let url = urlString.componentsSeparatedByString("heliumlift://openURL=").last!
             
             if let urlObject = NSURL(string: url) {
                 
