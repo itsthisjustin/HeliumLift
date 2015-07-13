@@ -1,221 +1,222 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
-<dependencies>
-<plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
-</dependencies>
-<scenes>
-<!--Application-->
-<scene sceneID="JPo-4y-FX3">
-<objects>
-<application id="hnw-xV-0zn" sceneMemberID="viewController">
-<menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
-<items>
-<menuItem title="Actions" id="dMs-cI-mzQ">
-<modifierMask key="keyEquivalentModifierMask"/>
-<menu key="submenu" title="Actions" id="bib-Uj-vzu">
-<items>
-<menuItem title="Home" id="Nyi-fb-zv0" userLabel="Home">
-<modifierMask key="keyEquivalentModifierMask"/>
-<connections>
-<action selector="goHomePress:" target="Ady-hI-5gd" id="26n-UY-jVK"/>
-</connections>
-</menuItem>
-<menuItem title="Open Web URL..." keyEquivalent="l" id="JqH-ds-lJa">
-<connections>
-<action selector="openLocationPress:" target="Ady-hI-5gd" id="28r-dM-HMi"/>
-</connections>
-</menuItem>
-<menuItem title="Open File..." keyEquivalent="o" id="iba-HN-Jos">
-<connections>
-<action selector="openFilePress:" target="Ady-hI-5gd" id="hS5-ai-It3"/>
-</connections>
-</menuItem>
-<menuItem title="Reload" keyEquivalent="r" id="drw-0K-OAV">
-<connections>
-<action selector="reloadPress:" target="Ady-hI-5gd" id="gYL-ny-dkm"/>
-</connections>
-</menuItem>
-<menuItem isSeparatorItem="YES" id="wbg-XB-qHT"/>
-<menuItem title="Back" keyEquivalent="[" id="UkE-up-3w1">
-<connections>
-<action selector="backPress:" target="Ady-hI-5gd" id="Ihu-ny-5RO"/>
-</connections>
-</menuItem>
-<menuItem title="Forward" keyEquivalent="]" id="hcU-ei-qc9">
-<connections>
-<action selector="forwardPress:" target="Ady-hI-5gd" id="WVi-G0-CqM"/>
-</connections>
-</menuItem>
-<menuItem isSeparatorItem="YES" id="EEQ-dL-naW"/>
-<menuItem title="Magic URL Redirects" state="on" id="Vn0-wi-SSU">
-<modifierMask key="keyEquivalentModifierMask"/>
-<connections>
-<action selector="magicURLRedirectToggled:" target="Voe-Tx-rLC" id="OyL-id-RDj"/>
-</connections>
-</menuItem>
-<menuItem title="Check for Updates" id="ugT-xN-SoJ">
-<modifierMask key="keyEquivalentModifierMask"/>
-<connections>
-<action selector="checkForUpdates:" target="sQQ-SA-Rgm" id="dbi-vN-hI7"/>
-</connections>
-</menuItem>
-<menuItem title="About Helium" id="5kV-Vb-QxS">
-<modifierMask key="keyEquivalentModifierMask"/>
-<connections>
-<action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
-</connections>
-</menuItem>
-<menuItem title="Quit Helium" keyEquivalent="q" id="4sb-4s-VLi">
-<connections>
-<action selector="terminate:" target="hnw-xV-0zn" id="pxt-ZK-I6x"/>
-</connections>
-</menuItem>
-</items>
-</menu>
-</menuItem>
-<menuItem title="Appearance" id="H8h-7b-M4v">
-<modifierMask key="keyEquivalentModifierMask"/>
-<menu key="submenu" title="Appearance" id="HyV-fh-RgO">
-<items>
-<menuItem title="Translucent" keyEquivalent="t" id="wnn-Wb-fUq">
-<connections>
-<action selector="translucencyPress:" target="Ady-hI-5gd" id="orR-QV-BPD"/>
-</connections>
-</menuItem>
-<menuItem title="Opacity" id="wlj-XI-Lng">
-<modifierMask key="keyEquivalentModifierMask"/>
-<menu key="submenu" title="Opacity" systemMenu="window" id="5ao-Bb-P10">
-<items>
-<menuItem title="10%" keyEquivalent="1" id="SpQ-gr-DsG">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="RXN-qL-deK"/>
-</connections>
-</menuItem>
-<menuItem title="20%" keyEquivalent="2" id="B4x-FQ-kVj">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="SJU-4R-onV"/>
-</connections>
-</menuItem>
-<menuItem title="30%" keyEquivalent="3" id="S1G-zW-xWx">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="UJH-Ul-L4m"/>
-</connections>
-</menuItem>
-<menuItem title="40%" keyEquivalent="4" id="sB8-xz-mYZ">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="sew-bc-Bz1"/>
-</connections>
-</menuItem>
-<menuItem title="50%" keyEquivalent="5" id="BNJ-gh-yGK">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="Aa8-hl-bKq"/>
-</connections>
-</menuItem>
-<menuItem title="60%" state="on" keyEquivalent="6" id="iS5-Jd-p7Q">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="du4-a9-MJw"/>
-</connections>
-</menuItem>
-<menuItem title="70%" keyEquivalent="7" id="0pX-17-4u5">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="AjV-cx-Ila"/>
-</connections>
-</menuItem>
-<menuItem title="80%" keyEquivalent="8" id="mJa-We-e3P">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="Ets-Bj-vej"/>
-</connections>
-</menuItem>
-<menuItem title="90%" keyEquivalent="9" id="JLI-El-Rtf">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="jqj-3n-Dci"/>
-</connections>
-</menuItem>
-<menuItem title="100%" keyEquivalent="0" id="2NP-ZM-pKs">
-<connections>
-<action selector="percentagePress:" target="Ady-hI-5gd" id="wDd-yl-gr1"/>
-</connections>
-</menuItem>
-</items>
-<connections>
-<outlet property="delegate" destination="Voe-Tx-rLC" id="hNg-oj-Cad"/>
-</connections>
-</menu>
-</menuItem>
-<menuItem title="Zoom" id="kjo-5J-SOa">
-<modifierMask key="keyEquivalentModifierMask"/>
-<menu key="submenu" title="Zoom" id="91W-6v-hBY">
-<items>
-<menuItem title="Zoom In" keyEquivalent="+" id="x5u-Za-He5">
-<connections>
-<action selector="zoomIn:" target="Ady-hI-5gd" id="8DU-pG-x48"/>
-</connections>
-</menuItem>
-<menuItem title="Zoom Out" keyEquivalent="-" id="oZd-ZE-I3d">
-<connections>
-<action selector="zoomOut:" target="Ady-hI-5gd" id="B27-BH-sc0"/>
-</connections>
-</menuItem>
-<menuItem title="Reset Zoom Level" id="CkG-jI-gbw">
-<modifierMask key="keyEquivalentModifierMask"/>
-<connections>
-<action selector="resetZoomLevel:" target="Ady-hI-5gd" id="fjs-3Q-hPk"/>
-</connections>
-</menuItem>
-</items>
-</menu>
-</menuItem>
-</items>
-</menu>
-</menuItem>
-</items>
-</menu>
-<connections>
-<outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
-</connections>
-</application>
-<customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Helium_Lift" customModuleProvider="target">
-<connections>
-<outlet property="magicURLMenu" destination="Vn0-wi-SSU" id="jow-sG-Fmx"/>
-<outlet property="menuBarMenu" destination="AYu-sK-qS6" id="szA-wm-xEl"/>
-</connections>
-</customObject>
-<customObject id="sQQ-SA-Rgm" customClass="SUUpdater"/>
-<customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-</objects>
-<point key="canvasLocation" x="75" y="0.0"/>
-</scene>
-<!--Window Controller-->
-<scene sceneID="R2V-B0-nI4">
-<objects>
-<windowController storyboardIdentifier="HeliumController" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-<window key="window" title="Helium Lift" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
-<windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" HUD="YES"/>
-<windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES"/>
-<windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-<rect key="contentRect" x="196" y="240" width="480" height="270"/>
-<rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-</window>
-<connections>
-<segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
-</connections>
-</windowController>
-<customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-</objects>
-<point key="canvasLocation" x="75" y="250"/>
-</scene>
-<!--Web View Controller-->
-<scene sceneID="hIz-AP-VOD">
-<objects>
-<viewController id="XfG-lQ-9wD" customClass="WebViewController" customModule="Helium_Lift" customModuleProvider="target" sceneMemberID="viewController">
-<view key="view" id="m2S-Jp-Qdl">
-<rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-<autoresizingMask key="autoresizingMask"/>
-</view>
-</viewController>
-<customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-</objects>
-<point key="canvasLocation" x="75" y="655"/>
-</scene>
-</scenes>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6"/>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Helium" customModuleProvider="target">
+                    <connections>
+                        <outlet property="magicURLMenu" destination="Vn0-wi-SSU" id="jow-sG-Fmx"/>
+                        <outlet property="menuBarMenu" destination="ggp-vK-xeE" id="ccr-g9-wTJ"/>
+                    </connections>
+                </customObject>
+                <customObject id="sQQ-SA-Rgm" customClass="SUUpdater"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu title="Main Menu" id="ggp-vK-xeE">
+                    <items>
+                        <menuItem title="Home" id="Nyi-fb-zv0" userLabel="Home">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="goHomePress:" target="Ady-hI-5gd" id="26n-UY-jVK"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Open Web URL..." keyEquivalent="l" id="JqH-ds-lJa">
+                            <connections>
+                                <action selector="openLocationPress:" target="Ady-hI-5gd" id="28r-dM-HMi"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Open File..." keyEquivalent="o" id="iba-HN-Jos">
+                            <connections>
+                                <action selector="openFilePress:" target="Ady-hI-5gd" id="hS5-ai-It3"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Actions" hidden="YES" id="dMs-cI-mzQ">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Actions" id="bib-Uj-vzu">
+                                <items>
+                                    <menuItem title="Reload" keyEquivalent="r" id="drw-0K-OAV">
+                                        <connections>
+                                            <action selector="reloadPress:" target="Ady-hI-5gd" id="gYL-ny-dkm"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="wbg-XB-qHT"/>
+                                    <menuItem title="Back" keyEquivalent="[" id="UkE-up-3w1">
+                                        <connections>
+                                            <action selector="backPress:" target="Ady-hI-5gd" id="Ihu-ny-5RO"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Forward" keyEquivalent="]" id="hcU-ei-qc9">
+                                        <connections>
+                                            <action selector="forwardPress:" target="Ady-hI-5gd" id="WVi-G0-CqM"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="EEQ-dL-naW"/>
+                                    <menuItem title="Check for Updates" id="ugT-xN-SoJ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="checkForUpdates:" target="sQQ-SA-Rgm" id="dbi-vN-hI7"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="About Helium" id="5kV-Vb-QxS">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Preferences" id="H8h-7b-M4v">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Preferences" id="HyV-fh-RgO">
+                                <items>
+                                    <menuItem title="Translucent" keyEquivalent="t" id="wnn-Wb-fUq">
+                                        <connections>
+                                            <action selector="translucencyPress:" target="Ady-hI-5gd" id="orR-QV-BPD"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Opacity" id="wlj-XI-Lng">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Opacity" systemMenu="window" id="5ao-Bb-P10">
+                                            <items>
+                                                <menuItem title="10%" keyEquivalent="1" id="SpQ-gr-DsG">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="RXN-qL-deK"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="20%" keyEquivalent="2" id="B4x-FQ-kVj">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="SJU-4R-onV"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="30%" keyEquivalent="3" id="S1G-zW-xWx">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="UJH-Ul-L4m"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="40%" keyEquivalent="4" id="sB8-xz-mYZ">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="sew-bc-Bz1"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="50%" keyEquivalent="5" id="BNJ-gh-yGK">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="Aa8-hl-bKq"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="60%" state="on" keyEquivalent="6" id="iS5-Jd-p7Q">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="du4-a9-MJw"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="70%" keyEquivalent="7" id="0pX-17-4u5">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="AjV-cx-Ila"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="80%" keyEquivalent="8" id="mJa-We-e3P">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="Ets-Bj-vej"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="90%" keyEquivalent="9" id="JLI-El-Rtf">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="jqj-3n-Dci"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="100%" keyEquivalent="0" id="2NP-ZM-pKs">
+                                                    <connections>
+                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="wDd-yl-gr1"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="hNg-oj-Cad"/>
+                                            </connections>
+                                        </menu>
+                                    </menuItem>
+                                    <menuItem title="Zoom" id="kjo-5J-SOa">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Zoom" id="91W-6v-hBY">
+                                            <items>
+                                                <menuItem title="Zoom In" keyEquivalent="+" id="x5u-Za-He5">
+                                                    <connections>
+                                                        <action selector="zoomIn:" target="Ady-hI-5gd" id="8DU-pG-x48"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Zoom Out" keyEquivalent="-" id="oZd-ZE-I3d">
+                                                    <connections>
+                                                        <action selector="zoomOut:" target="Ady-hI-5gd" id="B27-BH-sc0"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Reset Zoom Level" id="CkG-jI-gbw">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="resetZoomLevel:" target="Ady-hI-5gd" id="fjs-3Q-hPk"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
+                                    <menuItem title="Magic URL Redirects" state="on" id="Vn0-wi-SSU">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="magicURLRedirectToggled:" target="Voe-Tx-rLC" id="OyL-id-RDj"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Quit Helium" keyEquivalent="q" id="4sb-4s-VLi">
+                            <connections>
+                                <action selector="terminate:" target="hnw-xV-0zn" id="pxt-ZK-I6x"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
+            </objects>
+            <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="R2V-B0-nI4">
+            <objects>
+                <windowController storyboardIdentifier="HeliumController" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Helium" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
+                        <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" HUD="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                    </window>
+                    <connections>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                    </connections>
+                </windowController>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="250"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="hIz-AP-VOD">
+            <objects>
+                <viewController id="XfG-lQ-9wD" customClass="WebViewController" customModule="Helium" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+    </scenes>
 </document>
