@@ -11,9 +11,7 @@
 		4D867CB91AD6781200681331 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D867CB81AD6781200681331 /* WebViewController.swift */; };
 		4D867CBB1AD6781200681331 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBA1AD6781200681331 /* Images.xcassets */; };
 		4D867CBE1AD6781200681331 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBC1AD6781200681331 /* Main.storyboard */; };
-		B34C1EC31ADE3B520094ADBA /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34C1EC21ADE3B520094ADBA /* Sparkle.framework */; };
 		B34C1EC61ADE3CBE0094ADBA /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */; };
-		B34C1EC91ADE3F980094ADBA /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B34C1EC21ADE3B520094ADBA /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95672401B50A42700AF7E31 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723E1B50A42700AF7E31 /* icon@2x.png */; };
 		C95672411B50A42700AF7E31 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723F1B50A42700AF7E31 /* icon.png */; };
 		C9B1D5D51B5335B300D92538 /* icon_32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5CE1B5335B300D92538 /* icon_32x32.png */; };
@@ -24,19 +22,6 @@
 		C9B1D5DA1B5335B300D92538 /* icon_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D31B5335B300D92538 /* icon_512x512.png */; };
 		C9B1D5DB1B5335B300D92538 /* icon_32x32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B34C1EC81ADE3F870094ADBA /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B34C1EC91ADE3F980094ADBA /* Sparkle.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4D867CB11AD6781200681331 /* Helium Lift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Helium Lift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B34C1EC31ADE3B520094ADBA /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +151,6 @@
 				4D867CAD1AD6781200681331 /* Sources */,
 				4D867CAE1AD6781200681331 /* Frameworks */,
 				4D867CAF1AD6781200681331 /* Resources */,
-				B34C1EC81ADE3F870094ADBA /* CopyFiles */,
 			);
 			buildRules = (
 			);
