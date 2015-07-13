@@ -4,4 +4,4 @@ Helium Lift is a revamp of Jaden Geller's floating browser window, Helium. Watch
 Quickly launch popular streaming services such as Netflix, Steamnation, or Plex right from the home screen or use the Chrome Extension to fling web pages right from your browser to Helium Lift.
 
 
-![Screenshot](http://bit.ly/1HVZETQ)
+![Screenshot](http://i.imgur.com/0aIGvG1.png)
