@@ -151,7 +151,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation) {
         if let pageTitle = webView.title {
             var title = pageTitle;
-            if title.isEmpty { title = "Helium Lift" }
+            if title.isEmpty { title = "HeliumLift" }
             let notif = NSNotification(name: "HeliumUpdateTitle", object: title);
             NSNotificationCenter.defaultCenter().postNotification(notif)
         }
