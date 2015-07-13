@@ -118,7 +118,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     }
     
     func clear() {
-        loadURL(NSURL(string: "http://jmitch.duet.to/index.html")!)
+        loadURL(NSURL(string: "http://heliumlift.duet.to/index.html")!)
     }
     
     var webView = WKWebView()
