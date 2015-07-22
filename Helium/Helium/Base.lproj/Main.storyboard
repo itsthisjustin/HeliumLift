@@ -33,7 +33,7 @@
                                 <action selector="openLocationPress:" target="Ady-hI-5gd" id="28r-dM-HMi"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Open File..." keyEquivalent="o" id="iba-HN-Jos">
+                        <menuItem title="Open File..." hidden="YES" keyEquivalent="o" id="iba-HN-Jos">
                             <connections>
                                 <action selector="openFilePress:" target="Ady-hI-5gd" id="hS5-ai-It3"/>
                             </connections>
