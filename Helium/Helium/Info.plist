@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>HeliumLift</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>Icon_512x512@2x.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.jmitch.heliumlift</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 	<key>LSMinimumSystemVersion</key>
