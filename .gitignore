@@ -27,4 +27,6 @@ DerivedData
 
 .DS_Store
 
-Helium/HeliumLift.xcodeproj/project.pbxproj
+#Helium/HeliumLift.xcodeproj/project.pbxproj
+Helium/HeliumLift.xcodeproj/xcuserdata/*
+Helium/HeliumLift.xcodeproj/project.xcworkspace/xcuserdata/*
