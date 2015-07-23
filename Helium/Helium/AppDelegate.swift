@@ -177,8 +177,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         open.allowsMultipleSelection = false
         open.canChooseFiles = true
         open.canChooseDirectories = false
+        open.allowedFileTypes = ["mov","mp4","ogg","avi","m4v","mpg","mpeg"]
         
-        if open.runModal() == NSModalResponseOK {
+        var response:NSModalResponse = open.runModal()
+        
+        if response == NSModalResponseOK {
             if let url = open.URL {
                 webViewController.loadURL(url)
             }
