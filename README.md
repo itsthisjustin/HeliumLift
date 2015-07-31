@@ -8,3 +8,5 @@ Quickly launch popular streaming services such as Netflix, Steamnation, or Plex 
 
 
 [Download the HeliumLift Fling Chrome Extension](https://chrome.google.com/webstore/detail/heliumlift-fling/omacbahioemehdajgbmndloahdfilkpg)
+
+[Download from the Mac App Store](https://itunes.apple.com/us/app/heliumlift/id1018899653?mt=12)
