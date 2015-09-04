@@ -17,8 +17,10 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadURLObject:", name: "HeliumLoadURL", object: nil)
         
         // Layout webview
-        view.addSubview(webView)
         webView.frame = view.bounds
+        
+        view.addSubview(webView)
+        
         webView.autoresizingMask = NSAutoresizingMaskOptions.ViewHeightSizable | NSAutoresizingMaskOptions.ViewWidthSizable
         
         // Allow plug-ins such as silverlight
@@ -87,7 +89,6 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     @IBAction func zoomOut(sender: AnyObject) {
         zoomOut()
     }
-    
     
     override var representedObject: AnyObject? {
         didSet {
