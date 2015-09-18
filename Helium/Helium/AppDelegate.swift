@@ -40,8 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         // Insert code here to initialize your application
         defaultWindow = NSApplication.sharedApplication().windows.first as? NSWindow
-        defaultWindow?.level = Int(CGWindowLevelForKey(Int32(kCGMainMenuWindowLevelKey-1)))
-        defaultWindow.collectionBehavior = NSWindowCollectionBehavior.FullScreenAuxiliary|NSWindowCollectionBehavior.CanJoinAllSpaces|NSWindowCollectionBehavior.FullScreenAuxiliary
+        defaultWindow?.level = Int(CGWindowLevelForKey(Int32(CGWindowLevelKey.MainMenuWindowLevelKey-1)))
+        defaultWindow.collectionBehavior = [NSWindowCollectionBehavior.FullScreenAuxiliary, NSWindowCollectionBehavior.CanJoinAllSpaces, NSWindowCollectionBehavior.FullScreenAuxiliary]
         
         magicURLMenu.state = NSUserDefaults.standardUserDefaults().boolForKey("disabledMagicURLs") ? NSOffState : NSOnState
         
@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 
             }
         } else {
-            println("No valid URL to handle")
+            print("No valid URL to handle")
         }
         
         
@@ -141,17 +141,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     @IBAction func percentagePress(sender: NSMenuItem) {
         for button in sender.menu!.itemArray{
-            (button as! NSMenuItem).state = NSOffState
+            (button ).state = NSOffState
         }
         sender.state = NSOnState
-        let value = sender.title.substringToIndex(advance(sender.title.endIndex, -1))
-        if let alpha = value.toInt() {
+        let value = sender.title.substringToIndex(sender.title.endIndex.advancedBy(-1))
+        if let alpha = Int(value) {
             didUpdateAlpha(NSNumber(integer: alpha))
         }
     }
     
     @IBAction func openLocationPress(sender: AnyObject) {
-        println("location requested...")
+        print("location requested...")
         didRequestLocation()
     }
     
@@ -179,7 +179,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         open.canChooseDirectories = false
         open.allowedFileTypes = ["mov","mp4","ogg","avi","m4v","mpg","mpeg"]
         
-        var response:NSModalResponse = open.runModal()
+        let response:NSModalResponse = open.runModal()
         
         if response == NSModalResponseOK {
             if let url = open.URL {

@@ -12,7 +12,7 @@ import Cocoa
 class Application: NSApplication {
     override func sendEvent(event: NSEvent) {
         if event.type == NSEventType.KeyDown {
-            if (event.modifierFlags & NSEventModifierFlags.DeviceIndependentModifierFlagsMask == NSEventModifierFlags.CommandKeyMask) {
+            if (event.modifierFlags.intersect(NSEventModifierFlags.DeviceIndependentModifierFlagsMask) == NSEventModifierFlags.CommandKeyMask) {
                 switch event.charactersIgnoringModifiers!.lowercaseString {
                 case "x":
                     if NSApp.sendAction(Selector("cut:"), to:nil, from:self) { return }
@@ -28,7 +28,7 @@ class Application: NSApplication {
                     break
                 }
             }
-            else if (event.modifierFlags & NSEventModifierFlags.DeviceIndependentModifierFlagsMask == (NSEventModifierFlags.CommandKeyMask | NSEventModifierFlags.ShiftKeyMask)) {
+            else if (event.modifierFlags.intersect(NSEventModifierFlags.DeviceIndependentModifierFlagsMask) == (NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask))) {
                 if event.charactersIgnoringModifiers == "Z" {
                     if NSApp.sendAction(Selector("redo:"), to:nil, from:self) { return }
                 }
