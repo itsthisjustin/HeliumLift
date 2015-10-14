@@ -39,8 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusBarItem.image = NSImage(named: "menuBar")
         
         // Insert code here to initialize your application
-        defaultWindow = NSApplication.sharedApplication().windows.first as? NSWindow
-        defaultWindow?.level = Int(CGWindowLevelForKey(Int32(CGWindowLevelKey.MainMenuWindowLevelKey-1)))
+        
+        defaultWindow = NSApplication.sharedApplication().windows.first as NSWindow?
+        defaultWindow.level = CGWindowLevelKey.MainMenuWindowLevelKey.rawValue - 1
         defaultWindow.collectionBehavior = [NSWindowCollectionBehavior.FullScreenAuxiliary, NSWindowCollectionBehavior.CanJoinAllSpaces, NSWindowCollectionBehavior.FullScreenAuxiliary]
         
         magicURLMenu.state = NSUserDefaults.standardUserDefaults().boolForKey("disabledMagicURLs") ? NSOffState : NSOnState

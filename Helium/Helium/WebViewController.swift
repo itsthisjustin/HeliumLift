@@ -132,17 +132,22 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     // Redirect Hulu and YouTube to pop-out videos
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         
-        if shouldRedirect, let url = navigationAction.request.URL, let urlString = url.absoluteString {
-            var modified = urlString
-            modified = modified.replacePrefix("https://www.youtube.com/watch?", replacement: "https://www.youtube.com/watch_popup?")
-            modified = modified.replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
+        if shouldRedirect {
+            let URL = navigationAction.request.URL
             
-            modified = modified.replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
-            
-            if urlString != modified {
-                decisionHandler(WKNavigationActionPolicy.Cancel)
-                loadURL(NSURL(string: modified)!)
-                return
+            if URL != nil {
+                let URLString = URL!.absoluteString
+                
+                let modifiedURLString = URLString
+                    .replacePrefix("https://www.youtube.com/watch?", replacement: "https://www.youtube.com/watch_popup?")
+                    .replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
+                    .replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
+                
+                if URLString != modifiedURLString {
+                    decisionHandler(WKNavigationActionPolicy.Cancel)
+                    loadURL(NSURL(string: modifiedURLString)!)
+                    return
+                }
             }
         }
         
@@ -161,8 +166,10 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if object as! NSObject == webView && keyPath == "estimatedProgress" {
-            if let progress = change["new"] as? Float {
-                let percent = progress * 100
+            let progress: AnyObject? = change?["new"]
+            
+            if progress is Float {
+                let percent = (progress as! Float) * 100.0
                 var title = NSString(format: "Loading... %.2f%%", percent)
                 if percent == 100 {
                     title = "Helium Lift"
