@@ -129,6 +129,16 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    }
+    
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        NSLog("%@", error)
+    }
+    
+    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
+    }
+    
     // Redirect Hulu and YouTube to pop-out videos
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         
@@ -161,6 +171,10 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             let notif = NSNotification(name: "HeliumUpdateTitle", object: title);
             NSNotificationCenter.defaultCenter().postNotification(notif)
         }
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        NSLog("%@", error)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
