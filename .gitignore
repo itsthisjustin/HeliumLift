@@ -30,3 +30,5 @@ DerivedData
 #Helium/HeliumLift.xcodeproj/project.pbxproj
 Helium/HeliumLift.xcodeproj/xcuserdata/*
 Helium/HeliumLift.xcodeproj/project.xcworkspace/xcuserdata/*
+
+*.pbxproj
