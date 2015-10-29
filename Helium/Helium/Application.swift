@@ -24,6 +24,13 @@ class Application: NSApplication {
                     if NSApp.sendAction(Selector("undo:"), to:nil, from:self) { return }
                 case "a":
                     if NSApp.sendAction(Selector("selectAll:"), to:nil, from:self) { return }
+                case "q":
+                    NSApplication.sharedApplication().terminate(self)
+                case "t":
+                    let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+                    if(appDelegate.translucent) { appDelegate.didDisableTranslucency() }
+                    else { appDelegate.didEnableTranslucency(); }
+                    return
                 default:
                     break
                 }
