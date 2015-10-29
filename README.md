@@ -11,4 +11,4 @@ Quickly launch popular streaming services such as Netflix, Steamnation, or Plex 
 
 [Download from the Mac App Store](https://itunes.apple.com/us/app/heliumlift/id1018899653?mt=12)
 
-[Download from my webiste](https://jmitch/heliumlift)
+[Download from my webiste](http://jmitch.com/heliumlift/)
