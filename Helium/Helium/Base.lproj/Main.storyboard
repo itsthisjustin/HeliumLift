@@ -87,11 +87,6 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Opacity" systemMenu="window" id="5ao-Bb-P10">
                                             <items>
-                                                <menuItem title="0%" keyEquivalent="`" id="SpQ-gr-DsG">
-                                                    <connections>
-                                                        <action selector="percentagePress:" target="Ady-hI-5gd" id="RXN-qL-deK"/>
-                                                    </connections>
-                                                </menuItem>
                                                 <menuItem title="10%" keyEquivalent="1" id="Xum-cG-ZOc">
                                                     <connections>
                                                         <action selector="percentagePress:" target="Ady-hI-5gd" id="mL0-i8-pSQ"/>
