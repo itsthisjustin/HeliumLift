@@ -31,8 +31,28 @@ class Application: NSApplication {
                     if(appDelegate.translucent) { appDelegate.didDisableTranslucency() }
                     else { appDelegate.didEnableTranslucency(); }
                     return
+                case "y":
+                    let nWindow = (NSApplication.sharedApplication().windows.first! as NSWindow)
+                    if (nWindow.visible) { nWindow.setIsVisible(false); return }
+                    else { nWindow.setIsVisible(true); return }
                 default:
-                    break
+                    let nController = ((NSApplication.sharedApplication().windows.first! as NSWindow).contentViewController as! WebViewController)
+                    switch(event.keyCode) {
+                    case 24: // '+'
+                        nController.zoomIn()
+                        return
+                    case 27: // '-'
+                        nController.zoomOut()
+                        return
+                    case 30: // ']'
+                        nController.webView.goForward()
+                        return
+                    case 33: // '['
+                        nController.webView.goBack()
+                        return
+                    default:
+                        break
+                    }
                 }
             }
             else if (event.modifierFlags.intersect(NSEventModifierFlags.DeviceIndependentModifierFlagsMask) == (NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask))) {

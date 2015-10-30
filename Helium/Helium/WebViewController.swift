@@ -133,7 +133,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         loadURL(NSURL(string: "http://heliumlift.duet.to/start.html")!)
     }
     
-    var webView = WKWebView()
+    let webView = WKWebView()
     var shouldRedirect: Bool {
         get {
             return !NSUserDefaults.standardUserDefaults().boolForKey("disabledMagicURLs")

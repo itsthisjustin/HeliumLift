@@ -164,8 +164,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         webViewController.clear()
     }
     
-    //MARK: Actual functionality
+    @IBAction func changeVisible(sender: AnyObject) {
+        let nWindow = (NSApplication.sharedApplication().windows.first! as NSWindow)
+        if(nWindow.visible) { nWindow.setIsVisible(false); return }
+        else { nWindow.setIsVisible(true); return }
+    }
     
+    //MARK: Actual functionality
     func didUpdateTitle(notification: NSNotification) {
         if let title = notification.object as? String {
             panel.title = title
