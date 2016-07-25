@@ -14,30 +14,21 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadURLObject:", name: "HeliumLoadURL", object: nil)
+        view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WebViewController.loadURLObject(_:)), name: "HeliumLoadURL", object: nil)
         
         // Layout webview
-        webView.frame = view.bounds
-        
         view.addSubview(webView)
-        
-        view.addSubview(webView)
-        
         webView.frame = view.bounds
-        
         webView.autoresizingMask = [NSAutoresizingMaskOptions.ViewHeightSizable, NSAutoresizingMaskOptions.ViewWidthSizable]
         
         
-        
         // Allow plug-ins such as silverlight
-        
         webView.configuration.preferences.plugInsEnabled = true
         
-        
-        
         // Custom user agent string for Netflix HTML5 support
-        
-        webView._customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12"
+        webView._customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.6.17 (KHTML, like Gecko) Version/9.1.2 Safari/601.6.17"
 
         
         // Setup magic URLs
@@ -46,12 +37,16 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         // Allow zooming
         webView.allowsMagnification = true
         
+        // Allow back and forth
+        webView.allowsBackForwardNavigationGestures = true
+        
         // Listen for load progress
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.New, context: nil)
         
         clear()
     }
     
+    // MARK: Actions
     override func validateMenuItem(menuItem: NSMenuItem) -> Bool{
         switch menuItem.title {
         case "Back":
@@ -107,6 +102,19 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
+    internal func loadAlmostURL(text: String) {
+        var text = text
+        if !(text.lowercaseString.hasPrefix("http://") || text.lowercaseString.hasPrefix("https://")) {
+            text = "http://" + text
+        }
+        
+        if let url = NSURL(string: text) {
+            loadURL(url)
+        }
+    }
+    
+    // MARK: Loading
+    
     func loadURL(url:NSURL) {
         webView.loadRequest(NSURLRequest(URL: url))
     }
@@ -118,10 +126,14 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         // "openURL=" from the urlObject, makes a new NSURL out of it
         // and sends it to loadURL.
         
-        if let url = urlObject.object as? NSURL,
-            let lastPart = url.absoluteString.componentsSeparatedByString("openURL=").last,
-            let newURL = NSURL(string: lastPart) {
-                loadURL(newURL);
+//        if let url = urlObject.object as? NSURL,
+//            let lastPart = url.absoluteString.componentsSeparatedByString("openURL=").last,
+//            let newURL = NSURL(string: lastPart) {
+//                loadURL(newURL);
+//        }
+        
+        if let url = urlObject.object as? NSURL {
+            loadAlmostURL(url.absoluteString)
         }
     }
     
@@ -129,14 +141,21 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.reload()
     }
     
+    // MARK: Webview functions
+    
+    // Keep the URL the same
     func clear() {
-        loadURL(NSURL(string: "http://heliumlift.duet.to/start.html")!)
+        if let homePage = NSUserDefaults.standardUserDefaults().stringForKey(UserSetting.HomePageURL.userDefaultsKey) {
+            loadAlmostURL(homePage)
+        } else {
+            loadURL(NSURL(string: "http://heliumlift.duet.to/start.html")!)
+        }
     }
     
     let webView = WKWebView()
     var shouldRedirect: Bool {
         get {
-            return !NSUserDefaults.standardUserDefaults().boolForKey("disabledMagicURLs")
+            return !NSUserDefaults.standardUserDefaults().boolForKey(UserSetting.DisabledMagicURLs.userDefaultsKey)
         }
     }
     
@@ -153,26 +172,33 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     // Redirect Hulu and YouTube to pop-out videos
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         
-        if shouldRedirect {
-            let URL = navigationAction.request.URL
+        if shouldRedirect, let url = navigationAction.request.URL {
             
-            if URL != nil {
-                let URLString = URL!.absoluteString
-                
-                let modifiedURLString = URLString
-                    .replacePrefix("https://www.youtube.com/watch?", replacement: "https://www.youtube.com/watch_popup?")
-                    .replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
-                    .replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
-                
-                if URLString != modifiedURLString {
-                    decisionHandler(WKNavigationActionPolicy.Cancel)
-                    loadURL(NSURL(string: modifiedURLString)!)
-                    return
+            let urlString = url.absoluteString
+            var modified = urlString
+            modified = modified.replacePrefix("https://www.youtube.com/watch?v=", replacement: modified.containsString("list") ? "https://www.youtube.com/embed/?v=" : "https://www.youtube.com/embed/")
+            modified = modified.replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
+            modified = modified.replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
+            modified = modified.replacePrefix("https://www.twitch.tv/", replacement: "https://player.twitch.tv?html5&channel=")
+            modified = modified.replacePrefix("http://www.dailymotion.com/video/", replacement: "http://www.dailymotion.com/embed/video/")
+            modified = modified.replacePrefix("http://dai.ly/", replacement: "http://www.dailymotion.com/embed/video/")
+            
+            if modified.containsString("https://youtu.be") {
+                modified = "https://www.youtube.com/embed/" + getVideoHash(urlString)
+                if urlString.containsString("?t=") {
+                    modified += makeCustomStartTimeURL(urlString)
                 }
+            }
+            
+            if urlString != modified {
+                decisionHandler(WKNavigationActionPolicy.Cancel)
+                loadURL(NSURL(string: modified)!)
+                return
             }
         }
         
         decisionHandler(WKNavigationActionPolicy.Allow)
+
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation) {
@@ -191,13 +217,11 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if object as! NSObject == webView && keyPath == "estimatedProgress" {
-            let progress: AnyObject? = change?["new"]
-            
-            if progress is Float {
-                let percent = (progress as! Float) * 100.0
+            if let progress = change?["new"] as? Float {
+                let percent = progress * 100
                 var title = NSString(format: "Loading... %.2f%%", percent)
                 if percent == 100 {
-                    title = "Helium Lift"
+                    title = "HeliumLift"
                 }
                 
                 let notif = NSNotification(name: "HeliumUpdateTitle", object: title);
@@ -207,6 +231,70 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         
         
     }
+    
+    //Convert a YouTube video url that starts at a certian point to popup/embedded design
+    // (i.e. ...?t=1m2s --> ?start=62)
+    private func makeCustomStartTimeURL(url: String) -> String {
+        let startTime = "?t="
+        let idx = url.indexOf(startTime)
+        if idx == -1 {
+            return url
+        } else {
+            var returnURL = url
+            let timing = url.substringFromIndex(url.startIndex.advancedBy(idx+3))
+            let hoursDigits = timing.indexOf("h")
+            var minutesDigits = timing.indexOf("m")
+            let secondsDigits = timing.indexOf("s")
+            
+            returnURL.removeRange(returnURL.startIndex.advancedBy(idx+1) ..< returnURL.endIndex)
+            returnURL = "?start="
+            
+            //If there are no h/m/s params and only seconds (i.e. ...?t=89)
+            if (hoursDigits == -1 && minutesDigits == -1 && secondsDigits == -1) {
+                let onlySeconds = url.substringFromIndex(url.startIndex.advancedBy(idx+3))
+                returnURL = returnURL + onlySeconds
+                return returnURL
+            }
+            
+            //Do check to see if there is an hours parameter.
+            var hours = 0
+            if (hoursDigits != -1) {
+                hours = Int(timing.substringToIndex(timing.startIndex.advancedBy(hoursDigits)))!
+            }
+            
+            //Do check to see if there is a minutes parameter.
+            var minutes = 0
+            if (minutesDigits != -1) {
+                minutes = Int(timing.substringWithRange(timing.startIndex.advancedBy(hoursDigits+1) ..< timing.startIndex.advancedBy(minutesDigits)))!
+            }
+            
+            if minutesDigits == -1 {
+                minutesDigits = hoursDigits
+            }
+            
+            //Do check to see if there is a seconds parameter.
+            var seconds = 0
+            if (secondsDigits != -1) {
+                seconds = Int(timing.substringWithRange(timing.startIndex.advancedBy(minutesDigits+1) ..< timing.startIndex.advancedBy(secondsDigits)))!
+            }
+            
+            //Combine all to make seconds.
+            let secondsFinal = 3600*hours + 60*minutes + seconds
+            returnURL = returnURL + String(secondsFinal)
+            
+            return returnURL
+        }
+    }
+    
+    //Helper function to return the hash of the video for encoding a popout video that has a start time code.
+    private func getVideoHash(url: String) -> String {
+        let startOfHash = url.indexOf(".be/")
+        let endOfHash = url.indexOf("?t")
+        let hash = url.substringWithRange(url.startIndex.advancedBy(startOfHash+4) ..<
+            (endOfHash == -1 ? url.endIndex : url.startIndex.advancedBy(endOfHash)))
+        return hash
+    }
+
 }
 
 extension String {
@@ -218,5 +306,14 @@ extension String {
             return self
         }
         
+    }
+    
+    func indexOf(target: String) -> Int {
+        let range = self.rangeOfString(target)
+        if let range = range {
+            return self.startIndex.distanceTo(range.startIndex)
+        } else {
+            return -1
+        }
     }
 }

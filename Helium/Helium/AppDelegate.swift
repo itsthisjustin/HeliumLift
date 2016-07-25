@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // I moved it from the applicationDidFinishLaunching method.
         NSAppleEventManager.sharedAppleEventManager().setEventHandler(
             self,
-            andSelector: "handleURLEvent:withReply:",
+            andSelector: #selector(AppDelegate.handleURLEvent(_:withReply:)),
             forEventClass: AEEventClass(kInternetEventClass),
             andEventID: AEEventID(kAEGetURL)
         )
@@ -122,9 +122,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func windowDidLoad() {
         panel.floatingPanel = true
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didBecomeActive", name: NSApplicationDidBecomeActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willResignActive", name: NSApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didUpdateTitle:", name: "HeliumUpdateTitle", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didBecomeActive), name: NSApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.willResignActive), name: NSApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didUpdateTitle(_:)), name: "HeliumUpdateTitle", object: nil)
     }
     
     //MARK: IBActions
