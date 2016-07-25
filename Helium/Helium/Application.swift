@@ -19,15 +19,15 @@ class Application: NSApplication {
                 //switch event.charactersIgnoringModifiers!.lowercaseString {
                 switch event.keyCode {
                 case 0: // a
-                    if NSApp.sendAction(Selector("selectAll:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return }
                 case 6: // z
-                    if NSApp.sendAction(Selector("undo:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(#selector(NSText.undoManagerForWebView(_:)), to:nil, from:self) { return }
                 case 7: // x
-                    if NSApp.sendAction(Selector("cut:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) { return }
                 case 8: // c
-                    if NSApp.sendAction(Selector("copy:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(#selector(NSText.copy(_:)), to:nil, from:self) { return }
                 case 9: // v
-                    if NSApp.sendAction(Selector("paste:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(#selector(NSText.paste(_:)), to:nil, from:self) { return }
                 case 12: // q
                     NSApplication.sharedApplication().terminate(self)
                 case 16: // y
