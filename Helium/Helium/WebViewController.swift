@@ -11,9 +11,9 @@ import WebKit
 
 class WebViewController: NSViewController, WKNavigationDelegate {
     
+    // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WebViewController.loadURLObject(_:)), name: "HeliumLoadURL", object: nil)
@@ -23,14 +23,12 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.frame = view.bounds
         webView.autoresizingMask = [NSAutoresizingMaskOptions.ViewHeightSizable, NSAutoresizingMaskOptions.ViewWidthSizable]
         
-        
         // Allow plug-ins such as silverlight
         webView.configuration.preferences.plugInsEnabled = true
         
         // Custom user agent string for Netflix HTML5 support
-        webView._customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.6.17 (KHTML, like Gecko) Version/9.1.2 Safari/601.6.17"
+        webView._customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/601.6.17 (KHTML, like Gecko) Version/9.1.1 Safari/601.6.17"
 
-        
         // Setup magic URLs
         webView.navigationDelegate = self
         
@@ -142,8 +140,6 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     }
     
     // MARK: Webview functions
-    
-    // Keep the URL the same
     func clear() {
         if let homePage = NSUserDefaults.standardUserDefaults().stringForKey(UserSetting.HomePageURL.userDefaultsKey) {
             loadAlmostURL(homePage)
@@ -173,10 +169,20 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         
         if shouldRedirect, let url = navigationAction.request.URL {
-            
             let urlString = url.absoluteString
             var modified = urlString
-            modified = modified.replacePrefix("https://www.youtube.com/watch?v=", replacement: modified.containsString("list") ? "https://www.youtube.com/embed/?v=" : "https://www.youtube.com/embed/")
+            
+            // Change desktop youtube to youtube tv to enable fullscreen mode
+            if modified == "https://www.youtube.com/" {
+                modified = "https://www.youtube.com/tv#"
+            }
+            
+            // To change the url to make the video fullscreen. The problem is that when click on a video in
+            // youtube homepage, the url doesn't return the normal youtube video url. It just returns about:blank
+            // and some weird google url. Solution follows...
+            
+            //  Change everything to YouTube TV
+            modified = modified.replacePrefix("https://www.youtube.com/watch?v=", replacement: "https://www.youtube.com/tv#/watch?v=")
             modified = modified.replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
             modified = modified.replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
             modified = modified.replacePrefix("https://www.twitch.tv/", replacement: "https://player.twitch.tv?html5&channel=")
@@ -184,17 +190,25 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             modified = modified.replacePrefix("http://dai.ly/", replacement: "http://www.dailymotion.com/embed/video/")
             
             if modified.containsString("https://youtu.be") {
-                modified = "https://www.youtube.com/embed/" + getVideoHash(urlString)
+                modified = "https://www.youtube.com/tv#/watch?v=" + getVideoHash(urlString)
                 if urlString.containsString("?t=") {
                     modified += makeCustomStartTimeURL(urlString)
                 }
             }
+            
+            // To make embed youtube video autoplay
+//            if modified.hasPrefix("https://www.youtube.com/embed/") {
+//                if !modified.containsString("?autoplay=1") {
+//                    modified += "?autoplay=1"
+//                }
+//            }
             
             if urlString != modified {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 loadURL(NSURL(string: modified)!)
                 return
             }
+            
         }
         
         decisionHandler(WKNavigationActionPolicy.Allow)
