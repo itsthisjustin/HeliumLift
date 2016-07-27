@@ -160,11 +160,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         didRequestFile()
     }
     
-    @IBAction func goHomePress(sender: AnyObject) {
+    @IBAction func goHomePressed(sender: NSMenuItem) {
+        print("goHomePressed...")
         webViewController.clear()
     }
     
     @IBAction func changeVisible(sender: AnyObject) {
+        print("Command Y pressed")
         let nWindow = (NSApplication.sharedApplication().windows.first! as NSWindow)
         if(nWindow.visible) { nWindow.setIsVisible(false); return }
         else { nWindow.setIsVisible(true); return }
