@@ -16,10 +16,14 @@ class Application: NSApplication {
                 
                 let nController = ((NSApplication.sharedApplication().windows.first! as NSWindow).contentViewController as! WebViewController)
                 
+                let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+                
                 //switch event.charactersIgnoringModifiers!.lowercaseString {
                 switch event.keyCode {
                 case 0: // a
                     if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return }
+                case 2: // d
+                    appDelegate.webViewController.clear()
                 case 6: // z
                     if NSApp.sendAction(#selector(NSText.undoManagerForWebView(_:)), to:nil, from:self) { return }
                 case 7: // x
@@ -35,9 +39,11 @@ class Application: NSApplication {
                     if (nWindow.visible) { nWindow.setIsVisible(false); return }
                     else { nWindow.setIsVisible(true); return }
                 case 17: // t
-                    let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-                    if(appDelegate.translucent) { appDelegate.didDisableTranslucency() }
-                    else { appDelegate.didEnableTranslucency(); }
+                    if appDelegate.translucent {
+                        appDelegate.didDisableTranslucency()
+                    } else {
+                        appDelegate.didEnableTranslucency()
+                    }
                     return
                 case 24: // +
                     nController.zoomIn()
@@ -52,7 +58,7 @@ class Application: NSApplication {
                     nController.webView.goBack()
                     return
                 case 37: // l
-                    (NSApplication.sharedApplication().delegate as! AppDelegate).didRequestLocation()
+                    appDelegate.didRequestLocation()
                     return
                 default:
                     break

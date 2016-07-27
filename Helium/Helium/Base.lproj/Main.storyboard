@@ -23,24 +23,24 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="Main Menu" id="ggp-vK-xeE">
                     <items>
-                        <menuItem title="Home" keyEquivalent="h" id="Nyi-fb-zv0" userLabel="Home">
+                        <menuItem title="Dashboard" keyEquivalent="d" id="nMx-xr-XOT">
                             <connections>
-                                <action selector="goHomePress:" target="Ady-hI-5gd" id="26n-UY-jVK"/>
+                                <action selector="goHomePressed:" target="Voe-Tx-rLC" id="YI2-7K-bUN"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Show/Hide" keyEquivalent="y" id="G7d-2w-Dc3" userLabel="Home">
+                        <menuItem title="Show/Hide" keyEquivalent="y" id="G7d-2w-Dc3">
                             <connections>
                                 <action selector="changeVisible:" target="Voe-Tx-rLC" id="p1y-gc-baS"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Open Web URL..." keyEquivalent="l" id="JqH-ds-lJa">
                             <connections>
-                                <action selector="openLocationPress:" target="Ady-hI-5gd" id="28r-dM-HMi"/>
+                                <action selector="openLocationPress:" target="Voe-Tx-rLC" id="gn4-Bv-OxY"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Open File..." hidden="YES" keyEquivalent="o" id="iba-HN-Jos">
                             <connections>
-                                <action selector="openFilePress:" target="Ady-hI-5gd" id="hS5-ai-It3"/>
+                                <action selector="openFilePress:" target="Voe-Tx-rLC" id="0N6-YY-4Wb"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Actions" hidden="YES" id="dMs-cI-mzQ">
@@ -197,8 +197,8 @@
                     <window key="window" title="HeliumLift" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
                         <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" HUD="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" moveToActiveSpace="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
+                        <rect key="contentRect" x="1101" y="707" width="480" height="275"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                     </window>
                     <connections>
@@ -214,7 +214,7 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="WebViewController" customModule="HeliumLift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="275"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
