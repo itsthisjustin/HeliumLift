@@ -16,12 +16,12 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         super.viewDidLoad()
         view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WebViewController.loadURLObject(_:)), name: "HeliumLoadURL", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLObject(_:)), name: NSNotification.Name(rawValue: "HeliumLoadURL"), object: nil)
         
         // Layout webview
         view.addSubview(webView)
         webView.frame = view.bounds
-        webView.autoresizingMask = [NSAutoresizingMaskOptions.ViewHeightSizable, NSAutoresizingMaskOptions.ViewWidthSizable]
+        webView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
         
         // Allow plug-ins such as silverlight
         webView.configuration.preferences.plugInsEnabled = true
@@ -39,13 +39,13 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.allowsBackForwardNavigationGestures = true
         
         // Listen for load progress
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.New, context: nil)
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
         
         clear()
     }
     
     // MARK: Actions
-    override func validateMenuItem(menuItem: NSMenuItem) -> Bool{
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool{
         switch menuItem.title {
         case "Back":
             return webView.canGoBack
@@ -56,11 +56,11 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
-    @IBAction func backPress(sender: AnyObject) {
+    @IBAction func backPress(_ sender: AnyObject) {
         webView.goBack()
     }
     
-    @IBAction func forwardPress(sender: AnyObject) {
+    @IBAction func forwardPress(_ sender: AnyObject) {
         webView.goForward()
     }
     
@@ -76,49 +76,49 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.magnification = 1
     }
     
-    @IBAction func reloadPress(sender: AnyObject) {
+    @IBAction func reloadPress(_ sender: Any) {
         requestedReload()
     }
     
-    @IBAction func clearPress(sender: AnyObject) {
+    @IBAction func clearPress(_ sender: Any) {
         clear()
     }
     
-    @IBAction func resetZoomLevel(sender: AnyObject) {
+    @IBAction func resetZoomLevel(_ sender: Any) {
         resetZoom()
     }
-    @IBAction func zoomIn(sender: AnyObject) {
+    @IBAction func zoomIn(_ sender: Any) {
         zoomIn()
     }
-    @IBAction func zoomOut(sender: AnyObject) {
+    @IBAction func zoomOut(_ sender: Any) {
         zoomOut()
     }
     
-    override var representedObject: AnyObject? {
+    override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
         }
     }
     
-    internal func loadAlmostURL(text: String) {
+    internal func loadAlmostURL(_ text: String) {
         var text = text
-        if !(text.lowercaseString.hasPrefix("http://") || text.lowercaseString.hasPrefix("https://")) {
+        if !(text.lowercased().hasPrefix("http://") || text.lowercased().hasPrefix("https://")) {
             text = "http://" + text
         }
         
-        if let url = NSURL(string: text) {
+        if let url = URL(string: text) {
             loadURL(url)
         }
     }
     
     // MARK: Loading
     
-    func loadURL(url:NSURL) {
-        webView.loadRequest(NSURLRequest(URL: url))
+    func loadURL(_ url:URL) {
+        webView.load(URLRequest(url: url))
     }
     
     //MARK: - loadURLObject
-    func loadURLObject(urlObject : NSNotification) {
+    @objc func loadURLObject(_ urlObject : Notification) {
         
         // This is where the work gets done - it grabs everything after
         // "openURL=" from the urlObject, makes a new NSURL out of it
@@ -130,7 +130,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 //                loadURL(newURL);
 //        }
         
-        if let url = urlObject.object as? NSURL {
+        if let url = urlObject.object as? URL {
             loadAlmostURL(url.absoluteString)
         }
     }
@@ -141,34 +141,37 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     
     // MARK: Webview functions
     func clear() {
-        if let homePage = NSUserDefaults.standardUserDefaults().stringForKey(UserSetting.HomePageURL.userDefaultsKey) {
+        if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.userDefaultsKey) {
             loadAlmostURL(homePage)
         } else {
-            loadURL(NSURL(string: "http://heliumlift.duet.to/start.html")!)
+            //loadURL(URL(string: "http://heliumlift.duet.to/start.html")!)
+            loadURL(URL(string: "http://heliumlift.bitballoon.com")!)
         }
     }
     
     let webView = WKWebView()
     var shouldRedirect: Bool {
         get {
-            return !NSUserDefaults.standardUserDefaults().boolForKey(UserSetting.DisabledMagicURLs.userDefaultsKey)
+            return !UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
         }
     }
     
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     }
     
-    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        NSLog("%@", error)
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        if let saveError = error as? NSError {
+            NSLog("%@", saveError)
+        }
     }
     
-    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
     }
     
     // Redirect Hulu and YouTube to pop-out videos
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        if shouldRedirect, let url = navigationAction.request.URL {
+        if shouldRedirect, let url = navigationAction.request.url {
             let urlString = url.absoluteString
             var modified = urlString
             
@@ -189,9 +192,9 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             modified = modified.replacePrefix("http://www.dailymotion.com/video/", replacement: "http://www.dailymotion.com/embed/video/")
             modified = modified.replacePrefix("http://dai.ly/", replacement: "http://www.dailymotion.com/embed/video/")
             
-            if modified.containsString("https://youtu.be") {
+            if modified.contains("https://youtu.be") {
                 modified = "https://www.youtube.com/tv#/watch?v=" + getVideoHash(urlString)
-                if urlString.containsString("?t=") {
+                if urlString.contains("?t=") {
                     modified += makeCustomStartTimeURL(urlString)
                 }
             }
@@ -204,42 +207,46 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 //            }
             
             if urlString != modified {
-                decisionHandler(WKNavigationActionPolicy.Cancel)
-                loadURL(NSURL(string: modified)!)
+                decisionHandler(WKNavigationActionPolicy.cancel)
+                loadURL(URL(string: modified)!)
                 return
             }
             
         }
         
-        decisionHandler(WKNavigationActionPolicy.Allow)
+        decisionHandler(WKNavigationActionPolicy.allow)
 
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         if let pageTitle = webView.title {
             var title = pageTitle;
             if title.isEmpty { title = "HeliumLift" }
-            let notif = NSNotification(name: "HeliumUpdateTitle", object: title);
-            NSNotificationCenter.defaultCenter().postNotification(notif)
+            let notif = Notification(name: Notification.Name(rawValue: "HeliumUpdateTitle"), object: title);
+            NotificationCenter.default.post(notif)
         }
     }
     
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        NSLog("%@", error)
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        if let saveError = error as? NSError {
+            NSLog("%@", saveError)
+        }
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        //change?["new"]
         if object as! NSObject == webView && keyPath == "estimatedProgress" {
-            if let progress = change?["new"] as? Float {
+            if let changeValueKeyPair = change {
+            if let progress: Float = changeValueKeyPair[NSKeyValueChangeKey(rawValue: "new")] as? Float! {
                 let percent = progress * 100
                 var title = NSString(format: "Loading... %.2f%%", percent)
                 if percent == 100 {
                     title = "HeliumLift"
                 }
                 
-                let notif = NSNotification(name: "HeliumUpdateTitle", object: title);
-                NSNotificationCenter.defaultCenter().postNotification(notif)
+                let notif = Notification(name: Notification.Name(rawValue: "HeliumUpdateTitle"), object: title);
+                NotificationCenter.default.post(notif)
+            }
             }
         }
         
@@ -248,24 +255,24 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     
     //Convert a YouTube video url that starts at a certian point to popup/embedded design
     // (i.e. ...?t=1m2s --> ?start=62)
-    private func makeCustomStartTimeURL(url: String) -> String {
+    fileprivate func makeCustomStartTimeURL(_ url: String) -> String {
         let startTime = "?t="
         let idx = url.indexOf(startTime)
         if idx == -1 {
             return url
         } else {
             var returnURL = url
-            let timing = url.substringFromIndex(url.startIndex.advancedBy(idx+3))
+            let timing = url.substring(from: url.characters.index(url.startIndex, offsetBy: idx+3))
             let hoursDigits = timing.indexOf("h")
             var minutesDigits = timing.indexOf("m")
             let secondsDigits = timing.indexOf("s")
             
-            returnURL.removeRange(returnURL.startIndex.advancedBy(idx+1) ..< returnURL.endIndex)
+            returnURL.removeSubrange(returnURL.characters.index(returnURL.startIndex, offsetBy: idx+1) ..< returnURL.endIndex)
             returnURL = "?start="
             
             //If there are no h/m/s params and only seconds (i.e. ...?t=89)
             if (hoursDigits == -1 && minutesDigits == -1 && secondsDigits == -1) {
-                let onlySeconds = url.substringFromIndex(url.startIndex.advancedBy(idx+3))
+                let onlySeconds = url.substring(from: url.characters.index(url.startIndex, offsetBy: idx+3))
                 returnURL = returnURL + onlySeconds
                 return returnURL
             }
@@ -273,13 +280,13 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             //Do check to see if there is an hours parameter.
             var hours = 0
             if (hoursDigits != -1) {
-                hours = Int(timing.substringToIndex(timing.startIndex.advancedBy(hoursDigits)))!
+                hours = Int(timing.substring(to: timing.characters.index(timing.startIndex, offsetBy: hoursDigits)))!
             }
             
             //Do check to see if there is a minutes parameter.
             var minutes = 0
             if (minutesDigits != -1) {
-                minutes = Int(timing.substringWithRange(timing.startIndex.advancedBy(hoursDigits+1) ..< timing.startIndex.advancedBy(minutesDigits)))!
+                minutes = Int(timing.substring(with: timing.characters.index(timing.startIndex, offsetBy: hoursDigits+1) ..< timing.characters.index(timing.startIndex, offsetBy: minutesDigits)))!
             }
             
             if minutesDigits == -1 {
@@ -289,7 +296,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             //Do check to see if there is a seconds parameter.
             var seconds = 0
             if (secondsDigits != -1) {
-                seconds = Int(timing.substringWithRange(timing.startIndex.advancedBy(minutesDigits+1) ..< timing.startIndex.advancedBy(secondsDigits)))!
+                seconds = Int(timing.substring(with: timing.characters.index(timing.startIndex, offsetBy: minutesDigits+1) ..< timing.characters.index(timing.startIndex, offsetBy: secondsDigits)))!
             }
             
             //Combine all to make seconds.
@@ -301,20 +308,20 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     }
     
     //Helper function to return the hash of the video for encoding a popout video that has a start time code.
-    private func getVideoHash(url: String) -> String {
+    fileprivate func getVideoHash(_ url: String) -> String {
         let startOfHash = url.indexOf(".be/")
         let endOfHash = url.indexOf("?t")
-        let hash = url.substringWithRange(url.startIndex.advancedBy(startOfHash+4) ..<
-            (endOfHash == -1 ? url.endIndex : url.startIndex.advancedBy(endOfHash)))
+        let hash = url.substring(with: url.characters.index(url.startIndex, offsetBy: startOfHash+4) ..<
+            (endOfHash == -1 ? url.endIndex : url.characters.index(url.startIndex, offsetBy: endOfHash)))
         return hash
     }
 
 }
 
 extension String {
-    func replacePrefix(prefix: String, replacement: String) -> String {
+    func replacePrefix(_ prefix: String, replacement: String) -> String {
         if hasPrefix(prefix) {
-            return replacement + substringFromIndex(prefix.endIndex)
+            return replacement + substring(from: prefix.endIndex)
         }
         else {
             return self
@@ -322,10 +329,10 @@ extension String {
         
     }
     
-    func indexOf(target: String) -> Int {
-        let range = self.rangeOfString(target)
+    func indexOf(_ target: String) -> Int {
+        let range = self.range(of: target)
         if let range = range {
-            return self.startIndex.distanceTo(range.startIndex)
+            return self.characters.distance(from: self.startIndex, to: range.lowerBound)
         } else {
             return -1
         }
