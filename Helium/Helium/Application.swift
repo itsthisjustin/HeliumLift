@@ -10,13 +10,13 @@ import Cocoa
 
 @objc(Application)
 class Application: NSApplication {
-    override func sendEvent(event: NSEvent) {
-        if event.type == NSEventType.KeyDown {
-            if (event.modifierFlags.intersect(NSEventModifierFlags.DeviceIndependentModifierFlagsMask) == NSEventModifierFlags.CommandKeyMask) {
+    override func sendEvent(_ event: NSEvent) {
+        if event.type == NSEvent.EventType.keyDown {
+            if (event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) == NSEvent.ModifierFlags.command) {
                 
-                let nController = ((NSApplication.sharedApplication().windows.first! as NSWindow).contentViewController as! WebViewController)
+                let nController = ((NSApplication.shared.windows.first! as NSWindow).contentViewController as! WebViewController)
                 
-                let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate = NSApplication.shared.delegate as! AppDelegate
                 
                 //switch event.charactersIgnoringModifiers!.lowercaseString {
                 switch event.keyCode {
@@ -25,7 +25,9 @@ class Application: NSApplication {
                 case 2: // d
                     appDelegate.webViewController.clear()
                 case 6: // z
-                    if NSApp.sendAction(#selector(NSText.undoManagerForWebView(_:)), to:nil, from:self) { return }
+                   // if NSApp.sendAction(#selector(NSText.un?(nController.webView).undo()), to:nil, from:self) { return }
+                    //if NSApp.sendAction(#selector(NSText.undoManager?.undo()), to:nil, from:self) { return }
+                    return
                 case 7: // x
                     if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) { return }
                 case 8: // c
@@ -33,10 +35,10 @@ class Application: NSApplication {
                 case 9: // v
                     if NSApp.sendAction(#selector(NSText.paste(_:)), to:nil, from:self) { return }
                 case 12: // q
-                    NSApplication.sharedApplication().terminate(self)
+                    NSApplication.shared.terminate(self)
                 case 16: // y
-                    let nWindow = (NSApplication.sharedApplication().windows.first! as NSWindow)
-                    if (nWindow.visible) { nWindow.setIsVisible(false); return }
+                    let nWindow = (NSApplication.shared.windows.first! as NSWindow)
+                    if (nWindow.isVisible) { nWindow.setIsVisible(false); return }
                     else { nWindow.setIsVisible(true); return }
                 case 17: // t
                     if appDelegate.translucent {
@@ -65,9 +67,9 @@ class Application: NSApplication {
                 
                 }
             }
-            else if (event.modifierFlags.intersect(NSEventModifierFlags.DeviceIndependentModifierFlagsMask) == (NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask))) {
+            else if (event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) == (NSEvent.ModifierFlags.command.union(NSEvent.ModifierFlags.shift))) {
                 if event.charactersIgnoringModifiers == "Z" {
-                    if NSApp.sendAction(Selector("redo:"), to:nil, from:self) { return }
+                    if NSApp.sendAction(Selector(("redo:")), to:nil, from:self) { return }
                 }
             }
         }
