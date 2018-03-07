@@ -7,7 +7,9 @@ Quickly launch popular streaming services such as Netflix, Hulu, or Plex right f
 ![Screenshot](http://i.imgur.com/0aIGvG1.png)
 
 
-[Download the HeliumLift Fling Chrome Extension](https://chrome.google.com/webstore/detail/heliumlift-fling/omacbahioemehdajgbmndloahdfilkpg)
+[Download the Official HeliumLift Fling Chrome Extension](https://chrome.google.com/webstore/detail/oennkkfhmcaiikcnjdhonbpobllbnnfp/)
+
+[Download a more advanced Helium/HeliumLift Chrome Extension](https://chrome.google.com/webstore/detail/open-in-helium/fehnbjiphphbebcfgjmmffcfmnohcgbb)
 
 [Download from the Mac App Store](https://itunes.apple.com/us/app/heliumlift/id1018899653?mt=12)
 
