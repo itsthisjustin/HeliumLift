@@ -182,7 +182,7 @@
 				TargetAttributes = {
 					4D867CB01AD6781200681331 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = QHZZ6Z276N;
+						DevelopmentTeam = 844ZY8TQFX;
 						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -348,7 +348,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QHZZ6Z276N;
+				DEVELOPMENT_TEAM = 844ZY8TQFX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Helium",
@@ -374,7 +374,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QHZZ6Z276N;
+				DEVELOPMENT_TEAM = 844ZY8TQFX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Helium",
