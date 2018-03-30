@@ -22,7 +22,9 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         view.addSubview(webView)
         webView.frame = view.bounds
         webView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
-        
+        webView.configuration.preferences.javaScriptEnabled = true
+        webView.configuration.preferences.javaEnabled = true
+        webView.configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
         // Allow plug-ins such as silverlight
         webView.configuration.preferences.plugInsEnabled = true
         
@@ -31,7 +33,8 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 
         // Setup magic URLs
         webView.navigationDelegate = self
-        
+        webView.uiDelegate = self as! WKUIDelegate
+    
         // Allow zooming
         webView.allowsMagnification = true
         
@@ -40,7 +43,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         
         // Listen for load progress
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
-        
+    
         clear()
     }
     
@@ -166,6 +169,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        
     }
     
     // Redirect Hulu and YouTube to pop-out videos
@@ -337,4 +341,16 @@ extension String {
             return -1
         }
     }
+}
+
+extension WebViewController: WKUIDelegate {
+
+    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        
+        webView.url
+        webView.load(navigationAction.request)
+        
+        return nil;
+    }
+    
 }
