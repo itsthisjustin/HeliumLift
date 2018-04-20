@@ -184,6 +184,7 @@
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = 844ZY8TQFX;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -347,6 +348,7 @@
 				CODE_SIGN_ENTITLEMENTS = HeliumLift.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 844ZY8TQFX;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -359,6 +361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -373,6 +376,7 @@
 				CODE_SIGN_ENTITLEMENTS = HeliumLift.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 844ZY8TQFX;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -385,6 +389,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
