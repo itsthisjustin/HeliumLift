@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,15 +14,7 @@
 		4D867CBB1AD6781200681331 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBA1AD6781200681331 /* Images.xcassets */; };
 		4D867CBE1AD6781200681331 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBC1AD6781200681331 /* Main.storyboard */; };
 		B34C1EC61ADE3CBE0094ADBA /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */; };
-		C95672401B50A42700AF7E31 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723E1B50A42700AF7E31 /* icon@2x.png */; };
-		C95672411B50A42700AF7E31 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C956723F1B50A42700AF7E31 /* icon.png */; };
-		C9B1D5D51B5335B300D92538 /* icon_32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5CE1B5335B300D92538 /* icon_32x32.png */; };
-		C9B1D5D61B5335B300D92538 /* icon_16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5CF1B5335B300D92538 /* icon_16x16.png */; };
-		C9B1D5D71B5335B300D92538 /* icon_256x256.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D01B5335B300D92538 /* icon_256x256.png */; };
-		C9B1D5D81B5335B300D92538 /* icon_128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D11B5335B300D92538 /* icon_128x128.png */; };
-		C9B1D5D91B5335B300D92538 /* icon_512x512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */; };
-		C9B1D5DA1B5335B300D92538 /* icon_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D31B5335B300D92538 /* icon_512x512.png */; };
-		C9B1D5DB1B5335B300D92538 /* icon_32x32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */; };
+		EC1ACC6823504A4900E84B91 /* UpdateBuildNumber.sh in Resources */ = {isa = PBXBuildFile; fileRef = EC1ACC6723504A4900E84B91 /* UpdateBuildNumber.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,15 +33,7 @@
 		B34C1EC21ADE3B520094ADBA /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		C914A3F31B54353D00A0BE9F /* HeliumLift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeliumLift.entitlements; sourceTree = "<group>"; };
-		C956723E1B50A42700AF7E31 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		C956723F1B50A42700AF7E31 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		C9B1D5CE1B5335B300D92538 /* icon_32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_32x32.png; sourceTree = "<group>"; };
-		C9B1D5CF1B5335B300D92538 /* icon_16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_16x16.png; sourceTree = "<group>"; };
-		C9B1D5D01B5335B300D92538 /* icon_256x256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256x256.png; sourceTree = "<group>"; };
-		C9B1D5D11B5335B300D92538 /* icon_128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_128x128.png; sourceTree = "<group>"; };
-		C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_512x512@2x.png"; sourceTree = "<group>"; };
-		C9B1D5D31B5335B300D92538 /* icon_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512x512.png; sourceTree = "<group>"; };
-		C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_32x32@2x.png"; sourceTree = "<group>"; };
+		EC1ACC6723504A4900E84B91 /* UpdateBuildNumber.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = UpdateBuildNumber.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				C914A3F31B54353D00A0BE9F /* HeliumLift.entitlements */,
+				EC1ACC6723504A4900E84B91 /* UpdateBuildNumber.sh */,
 				4D867CB31AD6781200681331 /* Helium */,
 				4D867CC61AD6781200681331 /* HeliumTests */,
 				4D867CB21AD6781200681331 /* Products */,
@@ -135,15 +120,6 @@
 		B34C1EC71ADE3CCA0094ADBA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9B1D5CE1B5335B300D92538 /* icon_32x32.png */,
-				C9B1D5CF1B5335B300D92538 /* icon_16x16.png */,
-				C9B1D5D01B5335B300D92538 /* icon_256x256.png */,
-				C9B1D5D31B5335B300D92538 /* icon_512x512.png */,
-				C9B1D5D11B5335B300D92538 /* icon_128x128.png */,
-				C9B1D5D21B5335B300D92538 /* icon_512x512@2x.png */,
-				C9B1D5D41B5335B300D92538 /* icon_32x32@2x.png */,
-				C956723E1B50A42700AF7E31 /* icon@2x.png */,
-				C956723F1B50A42700AF7E31 /* icon.png */,
 				B34C1EC51ADE3CBE0094ADBA /* dsa_pub.pem */,
 			);
 			name = Resources;
@@ -156,6 +132,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D867CCD1AD6781200681331 /* Build configuration list for PBXNativeTarget "HeliumLift" */;
 			buildPhases = (
+				EC1ACC6623504A1A00E84B91 /* Update Build Number */,
 				4D867CAD1AD6781200681331 /* Sources */,
 				4D867CAE1AD6781200681331 /* Frameworks */,
 				4D867CAF1AD6781200681331 /* Resources */,
@@ -177,12 +154,11 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Justin Mitchell";
 				TargetAttributes = {
 					4D867CB01AD6781200681331 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 844ZY8TQFX;
 						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -193,8 +169,8 @@
 				};
 			};
 			buildConfigurationList = 4D867CAC1AD6781200681331 /* Build configuration list for PBXProject "HeliumLift" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -215,22 +191,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B1D5DA1B5335B300D92538 /* icon_512x512.png in Resources */,
-				C9B1D5D91B5335B300D92538 /* icon_512x512@2x.png in Resources */,
+				EC1ACC6823504A4900E84B91 /* UpdateBuildNumber.sh in Resources */,
 				4D867CBB1AD6781200681331 /* Images.xcassets in Resources */,
-				C95672411B50A42700AF7E31 /* icon.png in Resources */,
-				C95672401B50A42700AF7E31 /* icon@2x.png in Resources */,
-				C9B1D5D51B5335B300D92538 /* icon_32x32.png in Resources */,
 				B34C1EC61ADE3CBE0094ADBA /* dsa_pub.pem in Resources */,
-				C9B1D5D71B5335B300D92538 /* icon_256x256.png in Resources */,
-				C9B1D5DB1B5335B300D92538 /* icon_32x32@2x.png in Resources */,
 				4D867CBE1AD6781200681331 /* Main.storyboard in Resources */,
-				C9B1D5D61B5335B300D92538 /* icon_16x16.png in Resources */,
-				C9B1D5D81B5335B300D92538 /* icon_128x128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC1ACC6623504A1A00E84B91 /* Update Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"UpdateBuildNumber.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4D867CAD1AD6781200681331 /* Sources */ = {
@@ -262,17 +251,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -307,17 +307,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -336,6 +347,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -349,12 +361,16 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 844ZY8TQFX;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Helium",
 				);
 				INFOPLIST_FILE = Helium/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;
@@ -375,12 +391,16 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 844ZY8TQFX;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Helium",
 				);
 				INFOPLIST_FILE = Helium/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;

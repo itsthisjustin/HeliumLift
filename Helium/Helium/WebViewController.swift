@@ -158,17 +158,15 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     }
-    
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        if let saveError = error as? NSError {
-            NSLog("%@", saveError)
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-    }
-    
-    // Redirect Hulu and YouTube to pop-out videos
+
+	func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+		NSLog("\(error.localizedDescription)")
+	}
+
+	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+	}
+
+	// Redirect Hulu and YouTube to pop-out videos
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if shouldRedirect, let url = navigationAction.request.url {
@@ -226,21 +224,19 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             NotificationCenter.default.post(notif)
         }
     }
-    
+
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        if let saveError = error as? NSError {
-            NSLog("%@", saveError)
-        }
+		NSLog("\(error.localizedDescription)")
     }
-    
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         //change?["new"]
         if object as! NSObject == webView && keyPath == "estimatedProgress" {
             if let changeValueKeyPair = change {
-            if let progress: Float = changeValueKeyPair[NSKeyValueChangeKey(rawValue: "new")] as? Float! {
-                let percent = progress * 100
+            if let progress = changeValueKeyPair[NSKeyValueChangeKey(rawValue: "new")] as? NSNumber {
+				let percent = progress.floatValue * 100.0
                 var title = NSString(format: "Loading... %.2f%%", percent)
-                if percent == 100 {
+				if percent == 100.0 {
                     title = "HeliumLift"
                 }
                 
@@ -300,7 +296,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             }
             
             //Combine all to make seconds.
-            let secondsFinal = 3600*hours + 60*minutes + seconds
+            let secondsFinal = 3600 * hours + 60 * minutes + seconds
             returnURL = returnURL + String(secondsFinal)
             
             return returnURL
