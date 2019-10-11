@@ -17,7 +17,7 @@
 #
 # This value can also be provided (or overridden) using "--xcodeproj=<path>"
 #
-#xcodeproj="Project.xcodeproj"
+xcodeproj="Helium/HeliumLift.xcodeproj"
 
 ##
 # We have to define an Info.plist as the source of truth. This is typically the one for the main
@@ -26,7 +26,7 @@
 #
 # This value can also be provided (or overridden) using "--plist=<path>"
 #
-#plist="Project/Info.plist"
+plist="Helium/Helium/Info.plist"
 
 ##
 # By default, the script ensures that the build number is incremented when changes are declared
@@ -146,7 +146,7 @@ fi
 
 # Find unique references to Info.plist files in the project
 projectFile="${xcodeproj}/project.pbxproj"
-plists=$(grep "^\s*INFOPLIST_FILE.*$" "${projectFile}" | sed -Ee 's/^[[:space:]]+INFOPLIST_FILE[[:space:]*=[[:space:]]*["]?([^"]+)["]?;$/\1/g' | sort | uniq)
+plists=${plist}
 
 # Attempt to guess the plist based on the list we have.
 # If we've specified a plist above, we'll simply use that instead.

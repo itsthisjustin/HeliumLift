@@ -21,7 +21,6 @@
                         <outlet property="menuBarMenu" destination="ggp-vK-xeE" id="ccr-g9-wTJ"/>
                     </connections>
                 </customObject>
-                <customObject id="sQQ-SA-Rgm" customClass="SUUpdater"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu title="Main Menu" id="ggp-vK-xeE">
                     <items>
@@ -66,12 +65,6 @@
                                         </connections>
                                     </menuItem>
                                     <menuItem isSeparatorItem="YES" id="EEQ-dL-naW"/>
-                                    <menuItem title="Check for Updates" id="ugT-xN-SoJ">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="checkForUpdates:" target="sQQ-SA-Rgm" id="dbi-vN-hI7"/>
-                                        </connections>
-                                    </menuItem>
                                     <menuItem title="About Helium" id="5kV-Vb-QxS">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
