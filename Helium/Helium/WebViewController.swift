@@ -16,21 +16,28 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 
 	let webView = WKWebView()
 
-    // MARK: View lifecycle
+	// MARK: -
+	// MARK: NSViewController
+
+	override var representedObject: Any? {
+		didSet {
+			// Update the view, if already loaded.
+		}
+	}
 
 	override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
+		super.viewDidLoad()
+		view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLNotification(_:)), name: NSNotification.Name("HeliumLoadURL"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLNotification(_:)), name: NSNotification.Name("HeliumLoadURL"), object: nil)
 
 		// Layout webview
-        view.addSubview(webView)
-        webView.frame = view.bounds
-        webView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
-        
-        // Allow plug-ins such as silverlight
-        webView.configuration.preferences.plugInsEnabled = true
+		view.addSubview(webView)
+		webView.frame = view.bounds
+		webView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
+
+		// Allow plug-ins such as silverlight
+		webView.configuration.preferences.plugInsEnabled = true
 
 		// set the user agent
 		if #available(OSX 10.11, *) {
@@ -39,83 +46,67 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 			webView._customUserAgent = userAgent
 		}
 
-        // Setup magic URLs
-        webView.navigationDelegate = self
-        
-        // Allow zooming
-        webView.allowsMagnification = true
+		// Setup magic URLs
+		webView.navigationDelegate = self
 
-        // Allow back and forth
-        webView.allowsBackForwardNavigationGestures = true
+		// Allow zooming
+		webView.allowsMagnification = true
 
-        // Listen for load progress
-        webView.addObserver(self, forKeyPath:  #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
+		// Allow back and forth
+		webView.allowsBackForwardNavigationGestures = true
 
-        goToHomepage()
-    }
+		// Listen for load progress
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
 
-    // MARK: Actions
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        switch menuItem.title {
-        case "Back":
-            return webView.canGoBack
-        case "Forward":
-            return webView.canGoForward
-        default:
-            return true
-        }
-    }
-    
-    @IBAction func backPress(_ sender: AnyObject) {
-        webView.goBack()
-    }
-    
-    @IBAction func forwardPress(_ sender: AnyObject) {
-        webView.goForward()
-    }
-    
-    func zoomIn() {
-        webView.magnification += 0.1
-    }
-    
-    func zoomOut() {
-        webView.magnification -= 0.1
-    }
-    
-    func resetZoom() {
-        webView.magnification = 1
-    }
-    
-    @IBAction func reloadPress(_ sender: Any) {
-        requestedReload()
-    }
-    
-    @IBAction func clearPress(_ sender: Any) {
-        goToHomepage()
-    }
-    
-    @IBAction func resetZoomLevel(_ sender: Any) {
-        resetZoom()
-    }
+		goToHomepage()
+	}
+
+	// MARK: -
+	// MARK: IBActions
+
+	@IBAction func backPress(_ sender: AnyObject) {
+		webView.goBack()
+	}
+
+	@IBAction func forwardPress(_ sender: AnyObject) {
+		webView.goForward()
+	}
+
+	@IBAction func reloadPress(_ sender: Any) {
+		requestedReload()
+	}
+
+	@IBAction func clearPress(_ sender: Any) {
+		goToHomepage()
+	}
+
+	@IBAction func resetZoomLevel(_ sender: Any) {
+		resetZoom()
+	}
 
 	@IBAction func zoomIn(_ sender: Any) {
-        zoomIn()
-    }
+		zoomIn()
+	}
 
 	@IBAction func zoomOut(_ sender: Any) {
-        zoomOut()
-    }
-    
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
+		zoomOut()
+	}
 
-    // MARK: -
+	// MARK: -
 
-    func loadURL(_ url: URL) {
+	func goToHomepage() {
+		if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.userDefaultsKey) {
+			if let homePageURL = URL(string: homePage) {
+				loadURL(homePageURL)
+			}
+		} else {
+			// open the dashboard url
+			loadURL(URL(string: dashboardURL)!)
+		}
+	}
+
+	func loadURL(_ url: URL) {
 		var urlToLoad = url
 
 		// rewrite the url
@@ -133,7 +124,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 
 		// load the url
 		webView.load(URLRequest(url: urlToLoad))
-    }
+	}
 
 	@objc func loadURLNotification(_ notification: Notification) {
 
@@ -159,23 +150,12 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 	}
 
 	func requestedReload() {
-        webView.reload()
-    }
+		webView.reload()
+	}
 
-    func goToHomepage() {
-        if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.userDefaultsKey) {
-			if let homePageURL = URL(string: homePage) {
-				loadURL(homePageURL)
-			}
-        } else {
-			// open the dashboard url
-			loadURL(URL(string: dashboardURL)!)
-        }
-    }
-
-    var shouldRewriteURLs: Bool {
-        return !UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
-    }
+	var shouldRewriteURLs: Bool {
+		return !UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+	}
 
 	@objc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
@@ -201,11 +181,35 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		}
 	}
 
+	@objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+		// Note: This doesn't seem to be called anywhere.
+		switch menuItem.title {
+		case "Back":
+			return webView.canGoBack
+		case "Forward":
+			return webView.canGoForward
+		default:
+			return true
+		}
+	}
+
+	func zoomIn() {
+		webView.magnification += 0.1
+	}
+
+	func zoomOut() {
+		webView.magnification -= 0.1
+	}
+
+	func resetZoom() {
+		webView.magnification = 1
+	}
+
 	// MARK: -
 	// MARK: WKNavigationDelegate
 
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-    }
+	func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+	}
 
 	func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
 		NSLog("\(error.localizedDescription)")
@@ -240,18 +244,18 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		decisionHandler(WKNavigationActionPolicy.allow)
 	}
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
-        if let pageTitle = webView.title {
-            var title = pageTitle;
-            if title.isEmpty { title = "HeliumLift" }
-            let notif = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title);
-            NotificationCenter.default.post(notif)
-        }
-    }
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
+		if let pageTitle = webView.title {
+			var title = pageTitle;
+			if title.isEmpty { title = "HeliumLift" }
+			let notif = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title);
+			NotificationCenter.default.post(notif)
+		}
+	}
 
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+	func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
 		NSLog("\(error.localizedDescription)")
-    }
+	}
 
 	// MARK: -
 	// MARK: URL Rewriting
@@ -459,7 +463,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		return components
 	}
 
-    // Convert a YouTube video url time paramenter into seconds. (ie. "t=1m2s" -> 62)
+	// Convert a YouTube video url time paramenter into seconds. (ie. "t=1m2s" -> 62)
 
 	private func parseYouTubeTimeParameter(_ timeString: String) -> Int
 	{

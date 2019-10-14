@@ -11,15 +11,15 @@ import Foundation
 internal enum UserSetting {
 
 	case disabledMagicURLs
-    case opacityPercentage
-    case homePageURL
+	case opacityPercentage
+	case homePageURL
 
 	var userDefaultsKey: String {
-        switch self {
-        case .disabledMagicURLs: return "disabledMagicURLs"
-        case .opacityPercentage: return "opacityPercentage"
-        case .homePageURL: return "homePageURL"
-        }
-    }
+		switch self {
+		case .disabledMagicURLs: return "disabledMagicURLs"
+		case .opacityPercentage: return "opacityPercentage"
+		case .homePageURL: return "homePageURL"
+		}
+	}
 
 }
