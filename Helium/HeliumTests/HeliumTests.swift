@@ -3,7 +3,7 @@
 //  HeliumTests
 //
 //  Created by Jaden Geller on 4/9/15.
-//  Copyright (c) 2015 Jaden Geller. All rights reserved.
+//  Copyright © 2015-2019 Jaden Geller. All rights reserved.
 //
 
 import Cocoa

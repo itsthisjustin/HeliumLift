@@ -3,22 +3,21 @@
 //  Helium Lift
 //
 //  Modified by Justin Mitchell on 7/12/15.
-//  Copyright (c) 2015 Justin Mitchell. All rights reserved.
+//  Copyright © 2015-2019 Justin Mitchell. All rights reserved.
 //
 
 import Cocoa
-import CoreGraphics
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    
+
     @IBOutlet weak var magicURLMenu: NSMenuItem!
     @IBOutlet weak var menuBarMenu: NSMenu!
-    
+
     var statusBar = NSStatusBar.system
-    var statusBarItem : NSStatusItem = NSStatusItem()
-    var defaultWindow:NSWindow!
-    
+    var statusBarItem = NSStatusItem()
+    var defaultWindow: NSWindow!
+
     func applicationWillFinishLaunching(_ notification: Notification) {
         
         // This has to be called before the application is finished launching
@@ -36,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         statusBarItem = statusBar.statusItem(withLength: -1)
         statusBarItem.menu = menuBarMenu
-        statusBarItem.image = NSImage(named: NSImage.Name(rawValue: "menuBar"))
+        statusBarItem.image = NSImage(named: "menuBar")
         
         // Insert code here to initialize your application
         
@@ -51,17 +50,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-    
-    
-    
+
     @IBAction func magicURLRedirectToggled(_ sender: NSMenuItem) {
         sender.state = (sender.state == NSControl.StateValue.on) ? NSControl.StateValue.off : NSControl.StateValue.on
         UserDefaults.standard.set((sender.state == NSControl.StateValue.off), forKey: "disabledMagicURLs")
     }
-    
-    
-    //MARK: - handleURLEvent
-    // Called when the App opened via URL.
+
+    // MARK: -
+	// MARK: handleURLEvent
+
+	// Called when the App opened via URL.
     @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
         
         // There were a lot of strange Optionals being used in this method,
@@ -105,14 +103,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
-    
+
     var panel: NSPanel! {
-        get {
-            return (self.defaultWindow as! NSPanel)
-        }
+        return (self.defaultWindow as! NSPanel)
     }
-    
+
     var webViewController: WebViewController {
         get {
             return self.defaultWindow?.contentViewController as! WebViewController
@@ -121,14 +116,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func windowDidLoad() {
         panel.isFloatingPanel = true
-        
+
+        // Note: This is never called?
+
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didBecomeActive), name: NSApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.willResignActive), name: NSApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didUpdateTitle(_:)), name: NSNotification.Name(rawValue: "HeliumUpdateTitle"), object: nil)
  
     }
     
-    //MARK: IBActions
+    // MARK: IBActions
     
     @IBAction func translucencyPress(_ sender: NSMenuItem) {
         if sender.state == NSControl.StateValue.on  {
@@ -146,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             (button ).state = NSControl.StateValue.off
         }
         sender.state = NSControl.StateValue.on
-        let value = sender.title.substring(to: sender.title.characters.index(sender.title.endIndex, offsetBy: -1))
+        let value = sender.title[..<sender.title.index(sender.title.endIndex, offsetBy: -1)]
         if let alpha = Int(value) {
             didUpdateAlpha(NSNumber(value: alpha as Int))
         }
@@ -173,7 +170,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         else { nWindow.setIsVisible(true); return }
     }
     
-    //MARK: Actual functionality
+    // MARK: Actual functionality
     @objc func didUpdateTitle(_ notification: Notification) {
         if let title = notification.object as? String {
             panel.title = title
@@ -196,8 +193,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
     }
-    
-    
+
     func didRequestLocation() {
         let alert = NSAlert()
         alert.alertStyle = NSAlert.Style.informational
@@ -247,4 +243,3 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         alpha = CGFloat(newAlpha.doubleValue) / CGFloat(100.0)
     }
 }
-

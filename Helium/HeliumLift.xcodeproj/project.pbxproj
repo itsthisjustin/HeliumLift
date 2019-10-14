@@ -65,25 +65,17 @@
 		4D867CB31AD6781200681331 /* Helium */ = {
 			isa = PBXGroup;
 			children = (
-				3990737A1B98C00C00C07324 /* Application.swift */,
+				4DEAB8FD1ADBD98600A2FC2B /* Helium-Bridging-Header.h */,
 				4D867CB61AD6781200681331 /* AppDelegate.swift */,
+				3990737A1B98C00C00C07324 /* Application.swift */,
 				14D48BB81D46AC3F000547B4 /* UserSettings.swift */,
 				4D867CB81AD6781200681331 /* WebViewController.swift */,
 				4DEAB8FE1ADBD98600A2FC2B /* WKWebViewPrivate.h */,
 				4D867CBA1AD6781200681331 /* Images.xcassets */,
+				4D867CB51AD6781200681331 /* Info.plist */,
 				4D867CBC1AD6781200681331 /* Main.storyboard */,
-				4D867CB41AD6781200681331 /* Supporting Files */,
-				4DEAB8FD1ADBD98600A2FC2B /* Helium-Bridging-Header.h */,
 			);
 			path = Helium;
-			sourceTree = "<group>";
-		};
-		4D867CB41AD6781200681331 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4D867CB51AD6781200681331 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		4D867CC61AD6781200681331 /* HeliumTests */ = {
@@ -137,7 +129,7 @@
 				TargetAttributes = {
 					4D867CB01AD6781200681331 = {
 						CreatedOnToolsVersion = 6.3;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1110;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -350,10 +342,9 @@
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;
-				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -380,9 +371,8 @@
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmitch.heliumlift;
 				PRODUCT_NAME = HeliumLift;
-				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Helium/Helium-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
