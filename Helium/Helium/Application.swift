@@ -23,7 +23,7 @@ class Application: NSApplication {
                 case 0: // a
                     if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return }
                 case 2: // d
-                    appDelegate.webViewController.clear()
+                    appDelegate.webViewController.goToHomepage()
                 case 6: // z
                    // if NSApp.sendAction(#selector(NSText.un?(nController.webView).undo()), to:nil, from:self) { return }
                     //if NSApp.sendAction(#selector(NSText.undoManager?.undo()), to:nil, from:self) { return }
@@ -37,9 +37,14 @@ class Application: NSApplication {
                 case 12: // q
                     NSApplication.shared.terminate(self)
                 case 16: // y
-                    let nWindow = (NSApplication.shared.windows.first! as NSWindow)
-                    if (nWindow.isVisible) { nWindow.setIsVisible(false); return }
-                    else { nWindow.setIsVisible(true); return }
+					if let nWindow = NSApplication.shared.windows.first {
+						if (nWindow.isVisible) {
+							nWindow.setIsVisible(false)
+						} else {
+							nWindow.setIsVisible(true)
+						}
+					}
+					return
                 case 17: // t
                     if appDelegate.translucent {
                         appDelegate.didDisableTranslucency()
@@ -64,7 +69,6 @@ class Application: NSApplication {
                     return
                 default:
                     break
-                
                 }
             }
             else if (event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) == (NSEvent.ModifierFlags.command.union(NSEvent.ModifierFlags.shift))) {

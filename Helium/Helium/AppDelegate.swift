@@ -31,64 +31,51 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         )
     }
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidFinishLaunching(_ notification: Notification) {
         
         statusBarItem = statusBar.statusItem(withLength: -1)
         statusBarItem.menu = menuBarMenu
         statusBarItem.image = NSImage(named: "menuBar")
-        
-        // Insert code here to initialize your application
-        
-        defaultWindow = NSApplication.shared.windows.first as NSWindow?
+
+		defaultWindow = NSApplication.shared.windows.first
         defaultWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelKey.mainMenuWindow.rawValue) - 1)
         defaultWindow.collectionBehavior = [NSWindow.CollectionBehavior.fullScreenAuxiliary, NSWindow.CollectionBehavior.canJoinAllSpaces, NSWindow.CollectionBehavior.fullScreenAuxiliary]
-        
-        magicURLMenu.state = UserDefaults.standard.bool(forKey: "disabledMagicURLs") ? NSControl.StateValue.off : NSControl.StateValue.on
-        
+
+		magicURLMenu.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? NSControl.StateValue.off : NSControl.StateValue.on
+
+		windowDidLoad()
     }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
+
+	func applicationWillTerminate(_ notification: Notification) {
         // Insert code here to tear down your application
     }
 
     @IBAction func magicURLRedirectToggled(_ sender: NSMenuItem) {
         sender.state = (sender.state == NSControl.StateValue.on) ? NSControl.StateValue.off : NSControl.StateValue.on
-        UserDefaults.standard.set((sender.state == NSControl.StateValue.off), forKey: "disabledMagicURLs")
+        UserDefaults.standard.set((sender.state == NSControl.StateValue.off), forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
     }
 
     // MARK: -
-	// MARK: handleURLEvent
 
 	// Called when the App opened via URL.
     @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
-        
-        // There were a lot of strange Optionals being used in this method,
-        // including a bunch of stuff that was being force-unwrapped.
-        // I just cleaned it up a little, but didn't make any substantive changes.
-        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-            
-            let url = urlString.components(separatedBy: "heliumlift://openURL=").last!
-            if let urlObject = URL(string: url) {
-                
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "HeliumLoadURL"), object: urlObject)
-                
-            }
+        if let eventURL = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
+            let urlString = eventURL.components(separatedBy: "heliumlift://openURL=").last!
+			NotificationCenter.default.post(name: Notification.Name("HeliumLoadURL"), object: urlString)
         } else {
-            print("No valid URL to handle")
+            NSLog("Error: No valid url in apple event.")
         }
-        
-        
     }
-    
-    var alpha: CGFloat = 0.6 { //default
+
+    var alpha: CGFloat = 0.6 {
         didSet {
             if translucent {
                 panel.alphaValue = alpha
             }
         }
     }
-    
-    var translucent: Bool = false {
+
+	var translucent: Bool = false {
         didSet {
             if !NSApplication.shared.isActive {
                 panel.ignoresMouseEvents = translucent
@@ -109,23 +96,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     var webViewController: WebViewController {
-        get {
-            return self.defaultWindow?.contentViewController as! WebViewController
-        }
+		return self.defaultWindow?.contentViewController as! WebViewController
     }
     
     func windowDidLoad() {
         panel.isFloatingPanel = true
 
-        // Note: This is never called?
-
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didBecomeActive), name: NSApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.willResignActive), name: NSApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didUpdateTitle(_:)), name: NSNotification.Name(rawValue: "HeliumUpdateTitle"), object: nil)
- 
-    }
-    
-    // MARK: IBActions
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didUpdateTitle(_:)), name: NSNotification.Name("HeliumUpdateTitle"), object: nil)
+	}
+
+	// MARK: -
+	// MARK: IBActions
     
     @IBAction func translucencyPress(_ sender: NSMenuItem) {
         if sender.state == NSControl.StateValue.on  {
@@ -150,7 +133,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     @IBAction func openLocationPress(_ sender: AnyObject) {
-        print("location requested...")
         didRequestLocation()
     }
     
@@ -159,19 +141,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     
     @IBAction func goHomePressed(_ sender: NSMenuItem) {
-        print("goHomePressed...")
-        webViewController.clear()
+        webViewController.goToHomepage()
     }
-    
-    @IBAction func changeVisible(_ sender: AnyObject) {
-        print("Command Y pressed")
-        let nWindow = (NSApplication.shared.windows.first! as NSWindow)
-        if(nWindow.isVisible) { nWindow.setIsVisible(false); return }
-        else { nWindow.setIsVisible(true); return }
-    }
-    
+
+	@IBAction func changeVisible(_ sender: AnyObject) {
+		if let nWindow = NSApplication.shared.windows.first {
+			if (nWindow.isVisible) {
+				nWindow.setIsVisible(false)
+			} else {
+				nWindow.setIsVisible(true)
+			}
+		}
+	}
+
+	// MARK: -
     // MARK: Actual functionality
-    @objc func didUpdateTitle(_ notification: Notification) {
+
+	@objc func didUpdateTitle(_ notification: Notification) {
         if let title = notification.object as? String {
             panel.title = title
         }
@@ -242,4 +228,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func didUpdateAlpha(_ newAlpha: NSNumber) {
         alpha = CGFloat(newAlpha.doubleValue) / CGFloat(100.0)
     }
+
 }

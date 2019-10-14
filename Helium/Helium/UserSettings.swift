@@ -9,17 +9,17 @@
 import Foundation
 
 internal enum UserSetting {
-    case disabledMagicURLs
-    case disabledFullScreenFloat
+
+	case disabledMagicURLs
     case opacityPercentage
     case homePageURL
-    
-    var userDefaultsKey: String {
+
+	var userDefaultsKey: String {
         switch self {
         case .disabledMagicURLs: return "disabledMagicURLs"
-        case .disabledFullScreenFloat: return "disabledFullScreenFloat"
         case .opacityPercentage: return "opacityPercentage"
         case .homePageURL: return "homePageURL"
         }
     }
+
 }

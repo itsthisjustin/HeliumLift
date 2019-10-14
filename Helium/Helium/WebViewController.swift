@@ -11,25 +11,33 @@ import WebKit
 
 class WebViewController: NSViewController, WKNavigationDelegate {
 
+	let dashboardURL = "https://heliumlift.netlify.com"
+	let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+
 	let webView = WKWebView()
 
     // MARK: View lifecycle
-    override func viewDidLoad() {
+
+	override func viewDidLoad() {
         super.viewDidLoad()
         view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLObject(_:)), name: NSNotification.Name(rawValue: "HeliumLoadURL"), object: nil)
-        
-        // Layout webview
+
+        NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLNotification(_:)), name: NSNotification.Name("HeliumLoadURL"), object: nil)
+
+		// Layout webview
         view.addSubview(webView)
         webView.frame = view.bounds
         webView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
         
         // Allow plug-ins such as silverlight
         webView.configuration.preferences.plugInsEnabled = true
-        
-        // Custom user agent string for Netflix HTML5 support
-        webView._customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/601.6.17 (KHTML, like Gecko) Version/9.1.1 Safari/601.6.17"
+
+		// set the user agent
+		if #available(OSX 10.11, *) {
+			webView.customUserAgent = userAgent
+		} else {
+			webView._customUserAgent = userAgent
+		}
 
         // Setup magic URLs
         webView.navigationDelegate = self
@@ -44,7 +52,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         webView.addObserver(self, forKeyPath:  #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
 
-        clear()
+        goToHomepage()
     }
 
     // MARK: Actions
@@ -84,16 +92,18 @@ class WebViewController: NSViewController, WKNavigationDelegate {
     }
     
     @IBAction func clearPress(_ sender: Any) {
-        clear()
+        goToHomepage()
     }
     
     @IBAction func resetZoomLevel(_ sender: Any) {
         resetZoom()
     }
-    @IBAction func zoomIn(_ sender: Any) {
+
+	@IBAction func zoomIn(_ sender: Any) {
         zoomIn()
     }
-    @IBAction func zoomOut(_ sender: Any) {
+
+	@IBAction func zoomOut(_ sender: Any) {
         zoomOut()
     }
     
@@ -102,69 +112,97 @@ class WebViewController: NSViewController, WKNavigationDelegate {
             // Update the view, if already loaded.
         }
     }
-    
-    internal func loadAlmostURL(_ text: String) {
-        var text = text
-        if !(text.lowercased().hasPrefix("http://") || text.lowercased().hasPrefix("https://")) {
-            text = "http://" + text
-        }
-        
-        if let url = URL(string: text) {
-            loadURL(url)
-        }
-    }
-    
-    // MARK: Loading
+
+    // MARK: -
 
     func loadURL(_ url: URL) {
 		var urlToLoad = url
 
 		// rewrite the url
-		if shouldRedirect, let newURL = rewriteURL(urlToLoad) {
+		if shouldRewriteURLs, let newURL = rewriteURL(urlToLoad) {
 			urlToLoad = newURL
 		}
+
+#if DEBUG
+		if url.absoluteString != urlToLoad.absoluteString {
+			print("loadURL: (rewritten): \(url.absoluteString) -> \(urlToLoad.absoluteString)")
+		} else {
+			print("loadURL: \(url.absoluteString)")
+		}
+#endif // DEBUG
 
 		// load the url
 		webView.load(URLRequest(url: urlToLoad))
     }
 
-	// MARK: -
-	// MARK: loadURLObject
-    @objc func loadURLObject(_ urlObject: Notification) {
-        
-        // This is where the work gets done - it grabs everything after
-        // "openURL=" from the urlObject, makes a new NSURL out of it
-        // and sends it to loadURL.
-        
-//        if let url = urlObject.object as? NSURL,
-//            let lastPart = url.absoluteString.componentsSeparatedByString("openURL=").last,
-//            let newURL = NSURL(string: lastPart) {
-//                loadURL(newURL);
-//        }
-        
-        if let url = urlObject.object as? URL {
-            loadAlmostURL(url.absoluteString)
-        }
-    }
-    
-    func requestedReload() {
+	@objc func loadURLNotification(_ notification: Notification) {
+
+		// get the url string from the notification
+		guard var urlString = notification.object as? String else {
+			NSLog("Error: No url string in open url notification.")
+			return
+		}
+
+		// make sure the string has the scheme
+		if (urlString.hasPrefix("http://") == false) || (urlString.hasPrefix("https://") == false) {
+			urlString = ("https://" + urlString)
+		}
+
+		// create the url
+		guard let url = URL(string: urlString) else {
+			NSLog("Error: Unable to create url from notification.")
+			return
+		}
+
+		// open the url
+		loadURL(url)
+	}
+
+	func requestedReload() {
         webView.reload()
     }
-    
-    // MARK: Webview functions
-    func clear() {
+
+    func goToHomepage() {
         if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.userDefaultsKey) {
-            loadAlmostURL(homePage)
+			if let homePageURL = URL(string: homePage) {
+				loadURL(homePageURL)
+			}
         } else {
-//            loadURL(URL(string: "http://heliumlift.duet.to/start.html")!)
-//            loadURL(URL(string: "http://heliumlift.bitballoon.com")!)
-			loadURL(URL(string: "https://heliumlift.netlify.com")!)
+			// open the dashboard url
+			loadURL(URL(string: dashboardURL)!)
         }
     }
-    
-    var shouldRedirect: Bool {
+
+    var shouldRewriteURLs: Bool {
         return !UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
     }
+
+	@objc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+		if keyPath == #keyPath(WKWebView.estimatedProgress) {
+			// update the loading progress
+			let percent = webView.estimatedProgress * 100.0
+			let title = (percent == 100.0) ? NSString(format: "Loading... %.2f%%", percent) : "HeliumLift"
+			let notification = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title)
+			NotificationCenter.default.post(notification)
+		} else if keyPath == #keyPath(WKWebView.url) {
+			// catch and rewrite urls loaded through page javascript
+			if shouldRewriteURLs, let originalURL = webView.url, let newURL = rewriteURL(originalURL) {
+#if DEBUG
+				print("webView.url: (rewritten): \(originalURL.absoluteString) -> \(newURL.absoluteString)")
+#endif // DEBUG
+				// stop loading the page
+				webView.stopLoading()
+				DispatchQueue.main.async {
+					// load the rewritten url
+					self.webView.load(URLRequest(url: newURL))
+				}
+			}
+		}
+	}
+
+	// MARK: -
+	// MARK: WKNavigationDelegate
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     }
@@ -177,14 +215,27 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 	}
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		// get the request url
+		guard let requestURL = navigationAction.request.url else {
+			NSLog("Error: Could not get url for navigation action.")
+			decisionHandler(WKNavigationActionPolicy.allow)
+			return
+		}
 
 		// rewrite the url (if necessary)
-		if shouldRedirect, let originalURL = webView.url, let newURL = rewriteURL(originalURL) {
+		if shouldRewriteURLs, let newURL = rewriteURL(requestURL) {
+#if DEBUG
+			print("decidePolicyFor: (rewritten): \(requestURL.absoluteString) - > \(newURL.absoluteString)")
+#endif // DEBUG
 			// if the url was rewritten, cancel the load and start a new one
 			decisionHandler(WKNavigationActionPolicy.cancel)
 			webView.load(URLRequest(url: newURL))
 			return
 		}
+
+#if DEBUG
+		print("decidePolicyFor: (allowed): \(requestURL.absoluteString)")
+#endif // DEBUG
 
 		decisionHandler(WKNavigationActionPolicy.allow)
 	}
@@ -193,7 +244,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
         if let pageTitle = webView.title {
             var title = pageTitle;
             if title.isEmpty { title = "HeliumLift" }
-            let notif = Notification(name: Notification.Name(rawValue: "HeliumUpdateTitle"), object: title);
+            let notif = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title);
             NotificationCenter.default.post(notif)
         }
     }
@@ -202,58 +253,136 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		NSLog("\(error.localizedDescription)")
     }
 
-	@objc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-
-		if keyPath == #keyPath(WKWebView.estimatedProgress) {
-			let percent = webView.estimatedProgress * 100.0
-			let title = (percent == 100.0) ? NSString(format: "Loading... %.2f%%", percent) : "HeliumLift"
-			let notification = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title)
-			NotificationCenter.default.post(notification)
-		} else if keyPath == #keyPath(WKWebView.url) {
-			if shouldRedirect, let originalURL = webView.url, let newURL = rewriteURL(originalURL) {
-				// stop loading the page
-				webView.stopLoading()
-				DispatchQueue.main.async {
-					// load the rewritten url
-					self.webView.load(URLRequest(url: newURL))
-				}
-			}
-		}
-	}
-
 	// MARK: -
+	// MARK: URL Rewriting
 
 	private func rewriteURL(_ url: URL) -> URL?
 	{
-		// parse the url into components
+		// parse the url components
 		guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
 			return nil
 		}
 
-		let urlString = url.absoluteString
-		var modified = urlString
+		// rewrite urls by host
+		switch components.host {
+			case "dai.ly", "dailymotion.com", "www.dailymotion.com":
+				// rewrite dailymotion links
+				components = rewriteDailymotionLinks(components)
+			case "vimeo.com", "www.vimeo.com", "player.vimeo.com":
+				// rewrite vimeo links
+				components = rewriteVimeoLinks(components)
+			case "youku.com", "v.youku.com", "player.youku.com":
+				// rewrite youku links
+				components = rewriteYoukuLinks(components)
+			case "youtu.be", "youtube.com", "www.youtube.com":
+				// rewrite youtube links
+				components = rewriteYouTubeLinks(components)
+			default:
+				break
+		}
 
-		// rewrite youtube links
-		if (components.host == "youtu.be") || (components.host == "youtube.com") || (components.host == "www.youtube.com") {
-			components = rewriteYouTubeLinks(components)
-			if let rewrittenURL = components.url {
-				modified = rewrittenURL.absoluteString
+		// get the rewritten url
+		guard let rewrittenURL = components.url else {
+			return nil
+		}
+
+		// check if the url is the same
+		if url.absoluteString == rewrittenURL.absoluteString {
+			return nil
+		}
+
+		return rewrittenURL
+	}
+
+	private func rewriteDailymotionLinks(_ urlComponents: URLComponents) -> URLComponents
+	{
+		var components = urlComponents
+		var videoID: Substring?
+
+		// set dailymotion links to use https
+		components.scheme = "https"
+
+		// extract the video id
+		if components.path.hasPrefix("/video/") {
+			// (ex. https://www.dailymotion.com/video/x7mj6ld)
+			let index = components.path.index(components.path.startIndex, offsetBy: 7)
+			videoID = components.path[index...]
+		} else if components.path.hasPrefix("/embed/video/") {
+			// (ex. https://www.dailymotion.com/embed/video/x7mj6ld)
+			let index = components.path.index(components.path.startIndex, offsetBy: 13)
+			videoID = components.path[index...]
+		} else if components.host == "dai.ly" {
+			// (ex. https://dai.ly/x7mj6ld)
+			let index = components.path.index(components.path.startIndex, offsetBy: 1)
+			videoID = components.path[index...]
+		}
+
+		// convert to an embedded link
+		// (ex. https://www.dailymotion.com/embed/video/x7mj6ld)
+
+		if let videoID = videoID {
+			components.host = "www.dailymotion.com"
+			components.path = "/embed/video/\(videoID)"
+		}
+
+		return components
+	}
+
+	private func rewriteVimeoLinks(_ urlComponents: URLComponents) -> URLComponents
+	{
+		var components = urlComponents
+		var videoID: Substring?
+
+		// set vimeo links to use https
+		components.scheme = "https"
+
+		// extract the video id
+		if ((components.host == "vimeo.com") || (components.host == "www.vimeo.com")) && components.path.hasPrefix("/") {
+			// (ex. https://vimeo.com/364433394)
+			let index = components.path.index(components.path.startIndex, offsetBy: 1)
+			videoID = components.path[index...]
+		} else if (components.host == "player.vimeo.com") && components.path.hasPrefix("/video/") {
+			// (ex. https://player.vimeo.com/video/364433394)
+			let index = components.path.index(components.path.startIndex, offsetBy: 7)
+			videoID = components.path[index...]
+		}
+
+		// check we have a video id made of only numbers
+		if let videoID = videoID, videoID.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
+			// convert to an embedded link
+			// (ex. https://player.vimeo.com/video/364433394)
+			components.host = "player.vimeo.com"
+			components.path = "/video/\(videoID)"
+		}
+
+		return components
+	}
+
+	private func rewriteYoukuLinks(_ urlComponents: URLComponents) -> URLComponents
+	{
+		var components = urlComponents
+		var videoID: Substring?
+
+		// extract the video id
+		// (ex. https://v.youku.com/v_show/id_XMzU3MTY5OTQ4MA==.html)
+
+		if components.host == "v.youku.com" {
+			if let start = components.path.range(of: "id_"), let end = components.path.range(of: "=="), (start.upperBound < end.lowerBound) {
+				videoID = components.path[start.upperBound ..< end.lowerBound]
 			}
-		} else {
-			// rewrite other links
-			modified = modified.replacePrefix("https://vimeo.com/", replacement: "http://player.vimeo.com/video/")
-			modified = modified.replacePrefix("http://v.youku.com/v_show/id_", replacement: "http://player.youku.com/embed/")
-			modified = modified.replacePrefix("https://www.twitch.tv/", replacement: "https://player.twitch.tv?html5&channel=")
-			modified = modified.replacePrefix("http://www.dailymotion.com/video/", replacement: "http://www.dailymotion.com/embed/video/")
-			modified = modified.replacePrefix("http://dai.ly/", replacement: "http://www.dailymotion.com/embed/video/")
 		}
 
-		// return the modified url
-		if urlString != modified {
-			return URL(string: modified)
+		// convert to an embedded link
+		// (ex. http://player.youku.com/embed/XMzU3Mzk2OTc2NA)
+
+		if let videoID = videoID {
+			components.scheme = "http"
+			components.host = "player.youku.com"
+			components.path = "/embed/\(videoID)"
+			components.queryItems = nil
 		}
 
-		return nil
+		return components
 	}
 
 	private func rewriteYouTubeLinks(_ urlComponents: URLComponents) -> URLComponents
@@ -265,18 +394,22 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		// parse the video id from youtube urls
 		if components.host!.hasSuffix("youtu.be") {
 			// youtu.be links put the video id in the path
+			// (ex. https://youtu.be/kqpak5lFxvs)
 			let idIndex = components.path.index(components.path.startIndex, offsetBy: 1)
 			videoID = String(components.path[idIndex...])
 		} else if components.path.hasPrefix("/embed/") {
 			// embed links contain the video id in the path
+			// (ex. https://www.youtube.com/embed/kqpak5lFxvs)
 			let idIndex = components.path.index(components.path.startIndex, offsetBy: 7)
 			videoID = String(components.path[idIndex...])
 		} else if components.path.hasPrefix("/v/") {
 			// video links contain the video id in the path
+			// (ex. https://www.youtube.com/v/kqpak5lFxvs)
 			let idIndex = components.path.index(components.path.startIndex, offsetBy: 3)
 			videoID = String(components.path[idIndex...])
 		} else {
 			// check the query items for the video id
+			// (ex. https://www.youtube.com/watch?v=kqpak5lFxvs)
 			for item in queryItems {
 				if item.name == "v" {
 					videoID = item.value
@@ -308,20 +441,16 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		}
 		queryItems.removeAll(where: { $0.name == "t" })
 
-		// only rewrite links that contain a valid video id
+		// rewrite links that contain a valid video id
+		// (ex. https://www.youtube.com/embed/kqpak5lFxvs)
+
 		if let videoID = videoID, (videoID.count == 11) {
 			// make sure that autoplay is set
+			components.host = "y"
 			queryItems.removeAll(where: { $0.name == "autoplay" })
 			queryItems.append(URLQueryItem(name: "autoplay", value: "1"))
-
-			// rewrite links to use standard video pages
-			components.host = "www.youtube.com"
-			components.path = "/watch"
-			queryItems.append(URLQueryItem(name: "v", value: videoID))
-/*
 			// rewrite links to use embedded likns
 			components.path = "/embed/\(videoID)"
-*/
 		}
 
 		// update the query items
@@ -362,20 +491,6 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		}
 
 		return timeInSeconds
-	}
-
-}
-
-// MARK: -
-
-extension String {
-
-	func replacePrefix(_ prefix: String, replacement: String) -> String {
-		if hasPrefix(prefix) {
-			return replacement + substring(from: prefix.endIndex)
-		} else {
-			return self
-		}
 	}
 
 }
