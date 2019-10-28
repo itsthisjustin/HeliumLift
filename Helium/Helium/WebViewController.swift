@@ -69,16 +69,16 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		webView.goBack()
 	}
 
+	@IBAction func clearPress(_ sender: Any) {
+		goToHomepage()
+	}
+
 	@IBAction func forwardPress(_ sender: AnyObject) {
 		webView.goForward()
 	}
 
 	@IBAction func reloadPress(_ sender: Any) {
 		requestedReload()
-	}
-
-	@IBAction func clearPress(_ sender: Any) {
-		goToHomepage()
 	}
 
 	@IBAction func resetZoomLevel(_ sender: Any) {
@@ -178,18 +178,6 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 					self.webView.load(URLRequest(url: newURL))
 				}
 			}
-		}
-	}
-
-	@objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-		// Note: This doesn't seem to be called anywhere.
-		switch menuItem.title {
-		case "Back":
-			return webView.canGoBack
-		case "Forward":
-			return webView.canGoForward
-		default:
-			return true
 		}
 	}
 
@@ -450,7 +438,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 
 		if let videoID = videoID, (videoID.count == 11) {
 			// make sure that autoplay is set
-			components.host = "y"
+			components.host = "www.youtube.com"
 			queryItems.removeAll(where: { $0.name == "autoplay" })
 			queryItems.append(URLQueryItem(name: "autoplay", value: "1"))
 			// rewrite links to use embedded likns
