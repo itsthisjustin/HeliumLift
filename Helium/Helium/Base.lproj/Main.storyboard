@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,6 +19,7 @@
                     <connections>
                         <outlet property="magicURLMenu" destination="Vn0-wi-SSU" id="jow-sG-Fmx"/>
                         <outlet property="menuBarMenu" destination="ggp-vK-xeE" id="ccr-g9-wTJ"/>
+                        <outlet property="translucencyMenuItem" destination="wnn-Wb-fUq" id="vfJ-Ze-pTr"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -80,7 +81,7 @@
                                 <items>
                                     <menuItem title="Translucent" keyEquivalent="t" id="wnn-Wb-fUq">
                                         <connections>
-                                            <action selector="translucencyPress:" target="Ady-hI-5gd" id="orR-QV-BPD"/>
+                                            <action selector="toggleTranslucency:" target="Voe-Tx-rLC" id="zpk-yn-vVc"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Opacity" id="wlj-XI-Lng">

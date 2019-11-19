@@ -49,11 +49,7 @@ class Application: NSApplication {
 					}
 					return
 				case 17: // t
-					if appDelegate.translucent {
-						appDelegate.didDisableTranslucency()
-					} else {
-						appDelegate.didEnableTranslucency()
-					}
+					appDelegate.toggleTranslucency(nil)
 					return
 				case 24: // +
 					nController.zoomIn()

@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
 	@IBOutlet weak var magicURLMenu: NSMenuItem!
 	@IBOutlet weak var menuBarMenu: NSMenu!
+	@IBOutlet weak var translucencyMenuItem: NSMenuItem!
 
 	var statusBar = NSStatusBar.system
 	var statusBarItem = NSStatusItem()
@@ -42,9 +43,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
 		defaultWindow = NSApplication.shared.windows.first
 		defaultWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelKey.mainMenuWindow.rawValue) - 1)
-		defaultWindow.collectionBehavior = [NSWindow.CollectionBehavior.fullScreenAuxiliary, NSWindow.CollectionBehavior.canJoinAllSpaces, NSWindow.CollectionBehavior.fullScreenAuxiliary]
+		defaultWindow.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces, .fullScreenAuxiliary]
 
-		magicURLMenu.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? NSControl.StateValue.off : NSControl.StateValue.on
+		magicURLMenu.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? .off : .on
 
 		windowDidLoad()
 	}
@@ -75,16 +76,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
 	var translucent: Bool = false {
 		didSet {
-			if !NSApplication.shared.isActive {
-				panel.ignoresMouseEvents = translucent
-			}
 			if translucent {
-				panel.isOpaque = false
 				panel.alphaValue = alpha
-			}
-			else {
-				panel.isOpaque = true
+				panel.ignoresMouseEvents = true
+				panel.isOpaque = false
+			} else {
 				panel.alphaValue = 1.0
+				panel.ignoresMouseEvents = false
+				panel.isOpaque = true
 			}
 		}
 	}
@@ -100,8 +99,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	func windowDidLoad() {
 		panel.isFloatingPanel = true
 
-		NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didBecomeActive), name: NSApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.willResignActive), name: NSApplication.willResignActiveNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.didUpdateTitle(_:)), name: NSNotification.Name("HeliumUpdateTitle"), object: nil)
 	}
 
@@ -123,8 +120,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	}
 
 	@IBAction func magicURLRedirectToggled(_ sender: NSMenuItem) {
-		sender.state = (sender.state == NSControl.StateValue.on) ? NSControl.StateValue.off : NSControl.StateValue.on
-		UserDefaults.standard.set((sender.state == NSControl.StateValue.off), forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+		sender.state = (sender.state == .on) ? .off : .on
+		UserDefaults.standard.set((sender.state == .off), forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
 	}
 
 	@IBAction func openFilePress(_ sender: AnyObject) {
@@ -136,24 +133,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	}
 
 	@IBAction func percentagePress(_ sender: NSMenuItem) {
-		for button in sender.menu!.items{
-			button.state = NSControl.StateValue.off
+		for button in sender.menu!.items {
+			button.state = .off
 		}
-		sender.state = NSControl.StateValue.on
+		sender.state = .on
 		let value = sender.title[..<sender.title.index(sender.title.endIndex, offsetBy: -1)]
 		if let alpha = Double(value) {
 			didUpdateAlpha(alpha)
 		}
 	}
 
-	@IBAction func translucencyPress(_ sender: NSMenuItem) {
-		if sender.state == NSControl.StateValue.on {
-			sender.state = NSControl.StateValue.off
-			didDisableTranslucency()
-		} else {
-			sender.state = NSControl.StateValue.on
-			didEnableTranslucency()
-		}
+	@IBAction func toggleTranslucency(_ sender: Any?) {
+		translucent = !translucent
+		translucencyMenuItem.state = translucent ? .on : .off
 	}
 
 	// MARK: -
@@ -199,24 +191,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 				}
 			}
 		})
-	}
-
-	@objc func didBecomeActive() {
-		panel.ignoresMouseEvents = false
-	}
-
-	@objc func willResignActive() {
-		if translucent {
-			panel.ignoresMouseEvents = true
-		}
-	}
-
-	func didEnableTranslucency() {
-		translucent = true
-	}
-
-	func didDisableTranslucency() {
-		translucent = false
 	}
 
 	func didUpdateAlpha(_ newAlpha: Double) {
