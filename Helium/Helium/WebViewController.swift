@@ -77,20 +77,8 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		webView.goForward()
 	}
 
-	@IBAction func reloadPress(_ sender: Any) {
+	@IBAction func reloadPress(_ sender: Any?) {
 		requestedReload()
-	}
-
-	@IBAction func resetZoomLevel(_ sender: Any) {
-		resetZoom()
-	}
-
-	@IBAction func zoomIn(_ sender: Any) {
-		zoomIn()
-	}
-
-	@IBAction func zoomOut(_ sender: Any) {
-		zoomOut()
 	}
 
 	// MARK: -
@@ -161,8 +149,8 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 
 		if keyPath == #keyPath(WKWebView.estimatedProgress) {
 			// update the loading progress
-			let percent = webView.estimatedProgress * 100.0
-			let title = (percent == 100.0) ? NSString(format: "Loading... %.2f%%", percent) : "HeliumLift"
+			let percent = Int(round(webView.estimatedProgress * 100.0))
+			let title = (percent == 100) ? "Loading... \(percent)%" : "HeliumLift"
 			let notification = Notification(name: Notification.Name("HeliumUpdateTitle"), object: title)
 			NotificationCenter.default.post(notification)
 		} else if keyPath == #keyPath(WKWebView.url) {
@@ -189,8 +177,8 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		webView.magnification -= 0.1
 	}
 
-	func resetZoom() {
-		webView.magnification = 1
+	func zoomReset() {
+		webView.magnification = 1.0
 	}
 
 	// MARK: -

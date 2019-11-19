@@ -12,15 +12,15 @@ import Cocoa
 class Application: NSApplication {
 
 	override func sendEvent(_ event: NSEvent) {
-		if event.type == NSEvent.EventType.keyDown {
-			if (event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) == NSEvent.ModifierFlags.command) {
+		if event.type == .keyDown {
+			if (event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command) {
 
 				let appDelegate = NSApplication.shared.delegate as! AppDelegate
 				let nController = ((NSApplication.shared.windows.first! as NSWindow).contentViewController as! WebViewController)
 
 				switch event.keyCode {
 				case 0: // a
-					if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return }
+					if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to: nil, from: self) { return }
 				case 2: // d
 					appDelegate.webViewController.goToHomepage()
 				case 6: // z
@@ -28,15 +28,15 @@ class Application: NSApplication {
 					//if NSApp.sendAction(#selector(NSText.undoManager?.undo()), to:nil, from:self) { return }
 					return
 				case 7: // x
-					if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) {
+					if NSApp.sendAction(#selector(NSText.cut(_:)), to: nil, from: self) {
 						return
 					}
 				case 8: // c
-					if NSApp.sendAction(#selector(NSText.copy(_:)), to:nil, from:self) {
+					if NSApp.sendAction(#selector(NSText.copy(_:)), to: nil, from: self) {
 						return
 					}
 				case 9: // v
-					if NSApp.sendAction(#selector(NSText.paste(_:)), to:nil, from:self) { return }
+					if NSApp.sendAction(#selector(NSText.paste(_:)), to: nil, from: self) { return }
 				case 12: // q
 					NSApplication.shared.terminate(self)
 				case 16: // y
@@ -70,9 +70,9 @@ class Application: NSApplication {
 					break
 				}
 			}
-			else if (event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask) == (NSEvent.ModifierFlags.command.union(NSEvent.ModifierFlags.shift))) {
+			else if (event.modifierFlags.intersection(.deviceIndependentFlagsMask) == (NSEvent.ModifierFlags.command.union(.shift))) {
 				if event.charactersIgnoringModifiers == "Z" {
-					if NSApp.sendAction(Selector(("redo:")), to:nil, from:self) { return }
+					if NSApp.sendAction(Selector(("redo:")), to: nil, from: self) { return }
 				}
 			}
 		}

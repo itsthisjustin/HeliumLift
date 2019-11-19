@@ -9,15 +9,13 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
-	@IBOutlet weak var magicURLMenu: NSMenuItem!
 	@IBOutlet weak var menuBarMenu: NSMenu!
-	@IBOutlet weak var translucencyMenuItem: NSMenuItem!
 
+	var defaultWindow: NSWindow!
 	var statusBar = NSStatusBar.system
 	var statusBarItem = NSStatusItem()
-	var defaultWindow: NSWindow!
 
 	// MARK: -
 	// MARK: NSApplicationDelegate
@@ -44,8 +42,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		defaultWindow = NSApplication.shared.windows.first
 		defaultWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelKey.mainMenuWindow.rawValue) - 1)
 		defaultWindow.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces, .fullScreenAuxiliary]
-
-		magicURLMenu.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? .off : .on
 
 		windowDidLoad()
 	}
@@ -105,34 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 	// MARK: -
 	// MARK: IBActions
 
-	@IBAction func changeVisible(_ sender: AnyObject) {
-		if let nWindow = NSApplication.shared.windows.first {
-			if (nWindow.isVisible) {
-				nWindow.setIsVisible(false)
-			} else {
-				nWindow.setIsVisible(true)
-			}
-		}
-	}
-
-	@IBAction func goHomePressed(_ sender: NSMenuItem) {
-		webViewController.goToHomepage()
-	}
-
-	@IBAction func magicURLRedirectToggled(_ sender: NSMenuItem) {
-		sender.state = (sender.state == .on) ? .off : .on
-		UserDefaults.standard.set((sender.state == .off), forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
-	}
-
-	@IBAction func openFilePress(_ sender: AnyObject) {
-		didRequestFile()
-	}
-
-	@IBAction func openLocationPress(_ sender: AnyObject) {
-		didRequestLocation()
-	}
-
-	@IBAction func percentagePress(_ sender: NSMenuItem) {
+	@IBAction func changedOpacity(_ sender: NSMenuItem) {
 		for button in sender.menu!.items {
 			button.state = .off
 		}
@@ -143,9 +112,61 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		}
 	}
 
+	@IBAction func openDashboard(_ sender: Any?) {
+		webViewController.goToHomepage()
+	}
+
+	@IBAction func openFile(_ sender: Any?) {
+		didRequestFile()
+	}
+
+	@IBAction func openWebLocation(_ sender: Any?) {
+		didRequestLocation()
+	}
+
+	@IBAction func toggleMagicURLs(_ sender: Any?) {
+		let useMagicURLs = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+		UserDefaults.standard.set(!useMagicURLs, forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+	}
+
 	@IBAction func toggleTranslucency(_ sender: Any?) {
 		translucent = !translucent
-		translucencyMenuItem.state = translucent ? .on : .off
+	}
+
+	@IBAction func toggleVisibility(_ sender: Any?) {
+		defaultWindow.setIsVisible(!defaultWindow.isVisible)
+	}
+
+	@IBAction func zoomIn(_ sender: Any?) {
+		webViewController.zoomIn()
+	}
+
+	@IBAction func zoomOut(_ sender: Any?) {
+		webViewController.zoomOut()
+	}
+
+	@IBAction func zoomReset(_ sender: Any?) {
+		webViewController.zoomReset()
+	}
+
+	// MARK: -
+	// MARK: NSMenuItemValidation
+
+	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
+	{
+		if (menuItem.action == #selector(AppDelegate.toggleMagicURLs)) {
+			menuItem.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? .off : .on
+		} else if (menuItem.action == #selector(AppDelegate.toggleTranslucency)) {
+			menuItem.state = translucent ? .on : .off
+		} else if (menuItem.action == #selector(AppDelegate.toggleVisibility)) {
+			if (defaultWindow.isVisible) {
+				menuItem.title = "Hide Window"
+			} else {
+				menuItem.title = "Show Window"
+			}
+		}
+
+		return true
 	}
 
 	// MARK: -
@@ -168,7 +189,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
 	func didRequestLocation() {
 		let alert = NSAlert()
-		alert.alertStyle = NSAlert.Style.informational
+		alert.alertStyle = .informational
 		alert.messageText = "Enter Destination URL"
 
 		let urlField = NSTextField()
@@ -178,7 +199,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 		alert.addButton(withTitle: "Load")
 		alert.addButton(withTitle: "Cancel")
 		alert.beginSheetModal(for: defaultWindow!, completionHandler: { response in
-			if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+			if response == .alertFirstButtonReturn {
 				// Load
 				var text = (alert.accessoryView as! NSTextField).stringValue
 
