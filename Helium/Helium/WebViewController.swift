@@ -84,7 +84,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 	// MARK: -
 
 	func goToHomepage() {
-		if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.userDefaultsKey) {
+		if let homePage = UserDefaults.standard.string(forKey: UserSetting.homePageURL.rawValue) {
 			if let homePageURL = URL(string: homePage) {
 				loadURL(homePageURL)
 			}
@@ -142,7 +142,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 	}
 
 	var shouldRewriteURLs: Bool {
-		return !UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+		return UserDefaults.standard.bool(forKey: UserSetting.useMagicURLs.rawValue)
 	}
 
 	@objc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

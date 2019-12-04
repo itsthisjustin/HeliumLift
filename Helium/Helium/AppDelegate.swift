@@ -125,8 +125,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 	}
 
 	@IBAction func toggleMagicURLs(_ sender: Any?) {
-		let useMagicURLs = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
-		UserDefaults.standard.set(!useMagicURLs, forKey: UserSetting.disabledMagicURLs.userDefaultsKey)
+		let userDefaults = UserDefaults.standard
+		let useMagicURLs = userDefaults.bool(forKey: UserSetting.useMagicURLs.rawValue)
+		userDefaults.set(!useMagicURLs, forKey: UserSetting.useMagicURLs.rawValue)
 	}
 
 	@IBAction func toggleTranslucency(_ sender: Any?) {
@@ -155,7 +156,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
 	{
 		if (menuItem.action == #selector(AppDelegate.toggleMagicURLs)) {
-			menuItem.state = UserDefaults.standard.bool(forKey: UserSetting.disabledMagicURLs.userDefaultsKey) ? .off : .on
+			menuItem.state = UserDefaults.standard.bool(forKey: UserSetting.useMagicURLs.rawValue) ? .on : .off
 		} else if (menuItem.action == #selector(AppDelegate.toggleTranslucency)) {
 			menuItem.state = translucent ? .on : .off
 		} else if (menuItem.action == #selector(AppDelegate.toggleVisibility)) {
