@@ -11,7 +11,7 @@
 		3990737B1B98C00C00C07324 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3990737A1B98C00C00C07324 /* Application.swift */; };
 		4D867CB71AD6781200681331 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D867CB61AD6781200681331 /* AppDelegate.swift */; };
 		4D867CB91AD6781200681331 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D867CB81AD6781200681331 /* WebViewController.swift */; };
-		4D867CBB1AD6781200681331 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBA1AD6781200681331 /* Images.xcassets */; };
+		4D867CBB1AD6781200681331 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBA1AD6781200681331 /* Assets.xcassets */; };
 		4D867CBE1AD6781200681331 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D867CBC1AD6781200681331 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -22,7 +22,7 @@
 		4D867CB51AD6781200681331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D867CB61AD6781200681331 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D867CB81AD6781200681331 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		4D867CBA1AD6781200681331 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4D867CBA1AD6781200681331 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D867CBD1AD6781200681331 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D867CC81AD6781200681331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D867CC91AD6781200681331 /* HeliumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeliumTests.swift; sourceTree = "<group>"; };
@@ -65,13 +65,13 @@
 		4D867CB31AD6781200681331 /* Helium */ = {
 			isa = PBXGroup;
 			children = (
+				4D867CBA1AD6781200681331 /* Assets.xcassets */,
 				4DEAB8FD1ADBD98600A2FC2B /* Helium-Bridging-Header.h */,
 				4D867CB61AD6781200681331 /* AppDelegate.swift */,
 				3990737A1B98C00C00C07324 /* Application.swift */,
 				14D48BB81D46AC3F000547B4 /* UserSettings.swift */,
 				4D867CB81AD6781200681331 /* WebViewController.swift */,
 				4DEAB8FE1ADBD98600A2FC2B /* WKWebViewPrivate.h */,
-				4D867CBA1AD6781200681331 /* Images.xcassets */,
 				4D867CB51AD6781200681331 /* Info.plist */,
 				4D867CBC1AD6781200681331 /* Main.storyboard */,
 			);
@@ -124,7 +124,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Justin Mitchell";
 				TargetAttributes = {
 					4D867CB01AD6781200681331 = {
@@ -161,7 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D867CBB1AD6781200681331 /* Images.xcassets in Resources */,
+				4D867CBB1AD6781200681331 /* Assets.xcassets in Resources */,
 				4D867CBE1AD6781200681331 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

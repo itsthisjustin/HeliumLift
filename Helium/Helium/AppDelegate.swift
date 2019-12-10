@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
 		statusBarItem = statusBar.statusItem(withLength: -1)
 		statusBarItem.menu = menuBarMenu
-		statusBarItem.image = NSImage(named: "menuBar")
+		statusBarItem.image = NSImage(named: "MenuIcon")
 
 		defaultWindow = NSApplication.shared.windows.first
 		defaultWindow.level = NSWindow.Level(rawValue: Int(CGWindowLevelKey.mainMenuWindow.rawValue) - 1)
