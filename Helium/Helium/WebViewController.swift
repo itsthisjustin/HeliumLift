@@ -9,6 +9,8 @@
 import Cocoa
 import WebKit
 
+let WebViewOpenURLNotification = Notification.Name("HeliumLoadURL")
+
 class WebViewController: NSViewController, WKNavigationDelegate {
 
 	let dashboardURL = "https://heliumlift.netlify.com"
@@ -29,7 +31,7 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 		super.viewDidLoad()
 		view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
 
-		NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLNotification(_:)), name: NSNotification.Name("HeliumLoadURL"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(WebViewController.loadURLNotification(_:)), name: WebViewOpenURLNotification, object: nil)
 
 		// Layout webview
 		view.addSubview(webView)
@@ -117,14 +119,9 @@ class WebViewController: NSViewController, WKNavigationDelegate {
 	@objc func loadURLNotification(_ notification: Notification) {
 
 		// get the url string from the notification
-		guard var urlString = notification.object as? String else {
+		guard let urlString = notification.object as? String else {
 			NSLog("Error: No url string in open url notification.")
 			return
-		}
-
-		// make sure the string has the scheme
-		if (urlString.hasPrefix("http://") == false) || (urlString.hasPrefix("https://") == false) {
-			urlString = ("https://" + urlString)
 		}
 
 		// create the url

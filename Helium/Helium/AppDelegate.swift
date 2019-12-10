@@ -53,12 +53,53 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 	// MARK: -
 
 	// Called when the App opened via URL.
-	@objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
-		if let eventURL = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-			let urlString = eventURL.components(separatedBy: "heliumlift://openURL=").last!
-			NotificationCenter.default.post(name: Notification.Name("HeliumLoadURL"), object: urlString)
-		} else {
-			NSLog("Error: No valid url in apple event.")
+	@objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor)
+	{
+		if let originalURL = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
+			var eventURL = originalURL
+			var prefix: String
+			var wasHeliumURL = false
+
+			// remove the 'heliumlift://' prefix
+			prefix = "heliumlift://"
+			if (eventURL.lowercased().hasPrefix(prefix)) {
+				eventURL = String(eventURL.dropFirst(prefix.count))
+				wasHeliumURL = true
+			}
+			// remove the 'helium://' prefix
+			prefix = "helium://"
+			if (eventURL.lowercased().hasPrefix(prefix)) {
+				eventURL = String(eventURL.dropFirst(prefix.count))
+				wasHeliumURL = true
+			}
+
+			if (wasHeliumURL) {
+				// remove the 'openurl=' prefix
+				prefix = "openurl="
+				if (eventURL.lowercased().hasPrefix(prefix)) {
+					eventURL = String(eventURL.dropFirst(prefix.count))
+				}
+				// fix Safari's modified urls
+				prefix = "http//"
+				if (eventURL.lowercased().hasPrefix(prefix)) {
+					eventURL = String(eventURL.dropFirst(prefix.count))
+					eventURL = ("http://" + eventURL)
+				}
+				prefix = "https//"
+				if (eventURL.lowercased().hasPrefix(prefix)) {
+					eventURL = String(eventURL.dropFirst(prefix.count))
+					eventURL = ("https://" + eventURL)
+				}
+			}
+
+			// safety check
+			guard (eventURL.lowercased().hasPrefix("http://") || eventURL.lowercased().hasPrefix("https://")) else {
+				NSLog("Error: Get URL Apple Event did not contain a valid URL. (\(originalURL))")
+				return
+			}
+
+			// open the url
+			NotificationCenter.default.post(name: WebViewOpenURLNotification, object: eventURL)
 		}
 	}
 
